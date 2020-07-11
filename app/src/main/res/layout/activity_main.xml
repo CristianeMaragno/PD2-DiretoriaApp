@@ -28,7 +28,7 @@
         android:inputType="textPersonName"
         android:textColor="@color/Vermelho"
         android:textCursorDrawable="@null"
-        app:layout_constraintBottom_toTopOf="@+id/senhaAluno"
+        app:layout_constraintBottom_toTopOf="@+id/senhaDiretoria"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent" />
@@ -39,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:text="Senha"
-        app:layout_constraintBottom_toTopOf="@+id/senhaAluno"
-        app:layout_constraintStart_toStartOf="@+id/senhaAluno" />
+        app:layout_constraintBottom_toTopOf="@+id/senhaDiretoria"
+        app:layout_constraintStart_toStartOf="@+id/senhaDiretoria" />
 
     <Button
         android:id="@+id/buttonLogin"
@@ -78,7 +78,7 @@
         app:layout_constraintVertical_bias="0.518" />
 
     <EditText
-        android:id="@+id/senhaAluno"
+        android:id="@+id/senhaDiretoria"
         android:layout_width="275dp"
         android:layout_height="46dp"
         android:layout_marginBottom="44dp"
@@ -97,8 +97,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/Vermelho"
-        app:layout_constraintStart_toStartOf="@+id/senhaAluno"
-        app:layout_constraintTop_toBottomOf="@+id/senhaAluno" />
+        app:layout_constraintStart_toStartOf="@+id/senhaDiretoria"
+        app:layout_constraintTop_toBottomOf="@+id/senhaDiretoria" />
 
     <TextView
         android:id="@+id/textView3"
