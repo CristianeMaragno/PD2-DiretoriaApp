@@ -11,7 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".FinanceiroActivity"></activity>
+        <activity android:name=".DiarioActivity" />
+        <activity android:name=".SaidaActivity" />
+        <activity android:name=".OuvidoriaActivity" />
+        <activity android:name=".UsersActivity" />
+        <activity android:name=".CalendarioActivity" />
+        <activity android:name=".RecadosActivity" />
+        <activity android:name=".MenuActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

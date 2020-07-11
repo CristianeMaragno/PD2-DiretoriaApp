@@ -17,14 +17,6 @@ public class UserInformation {
         this.nome = nome;
     }
 
-    public String getTurma() {
-        return turma;
-    }
-
-    public void setTurma(String turma) {
-        this.turma = turma;
-    }
-
     public String getStatus() {
         return status;
     }

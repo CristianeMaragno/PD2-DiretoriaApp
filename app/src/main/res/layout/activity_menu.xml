@@ -23,14 +23,14 @@
         android:id="@+id/calendarioIcon"
         android:layout_width="@dimen/width_icon_menu"
         android:layout_height="@dimen/width_icon_menu"
-        app:layout_constraintBottom_toTopOf="@+id/calendarioIcon3"
+        app:layout_constraintBottom_toTopOf="@+id/saidaIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:srcCompat="@drawable/icon_calendario" />
 
     <ImageView
-        android:id="@+id/calendarioIcon6"
+        android:id="@+id/usersIcon"
         android:layout_width="@dimen/width_icon_menu"
         android:layout_height="@dimen/width_icon_menu"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
         app:srcCompat="@drawable/icon_user" />
 
     <ImageView
-        android:id="@+id/calendarioIcon3"
+        android:id="@+id/saidaIcon"
         android:layout_width="@dimen/width_icon_menu"
         android:layout_height="@dimen/width_icon_menu"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +49,7 @@
         app:srcCompat="@drawable/icon_saida" />
 
     <ImageView
-        android:id="@+id/calendarioIcon4"
+        android:id="@+id/financeiroIcon"
         android:layout_width="@dimen/width_icon_menu"
         android:layout_height="@dimen/width_icon_menu"
         app:layout_constraintBottom_toTopOf="@+id/buttonLogout"
@@ -73,17 +73,17 @@
         android:layout_width="@dimen/width_icon_menu"
         android:layout_height="@dimen/width_icon_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/calendarioIcon3"
-        app:layout_constraintTop_toTopOf="@+id/calendarioIcon3"
+        app:layout_constraintStart_toEndOf="@+id/saidaIcon"
+        app:layout_constraintTop_toTopOf="@+id/saidaIcon"
         app:srcCompat="@drawable/icon_professor" />
 
     <ImageView
         android:id="@+id/ouvidoriaIcon"
         android:layout_width="@dimen/width_icon_menu"
         android:layout_height="@dimen/width_icon_menu"
-        app:layout_constraintEnd_toStartOf="@+id/calendarioIcon3"
+        app:layout_constraintEnd_toStartOf="@+id/saidaIcon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/calendarioIcon3"
+        app:layout_constraintTop_toTopOf="@+id/saidaIcon"
         app:srcCompat="@drawable/icon_chat" />
 
     <Button
@@ -99,7 +99,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/identificadorProfessor"
+        android:id="@+id/identificadorDiretoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="8dp"
@@ -118,9 +118,9 @@
         android:text="Usuários"
         android:textColor="@color/Amarelo"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/calendarioIcon6"
-        app:layout_constraintStart_toStartOf="@+id/calendarioIcon6"
-        app:layout_constraintTop_toBottomOf="@+id/calendarioIcon6" />
+        app:layout_constraintEnd_toEndOf="@+id/usersIcon"
+        app:layout_constraintStart_toStartOf="@+id/usersIcon"
+        app:layout_constraintTop_toBottomOf="@+id/usersIcon" />
 
     <TextView
         android:id="@+id/textView8"
@@ -129,9 +129,9 @@
         android:text="Financeiro"
         android:textColor="@color/Amarelo"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/calendarioIcon4"
-        app:layout_constraintStart_toStartOf="@+id/calendarioIcon4"
-        app:layout_constraintTop_toBottomOf="@+id/calendarioIcon4" />
+        app:layout_constraintEnd_toEndOf="@+id/financeiroIcon"
+        app:layout_constraintStart_toStartOf="@+id/financeiroIcon"
+        app:layout_constraintTop_toBottomOf="@+id/financeiroIcon" />
 
     <TextView
         android:id="@+id/textView9"
@@ -151,9 +151,9 @@
         android:text="Saída"
         android:textColor="@color/Amarelo"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/calendarioIcon3"
-        app:layout_constraintStart_toStartOf="@+id/calendarioIcon3"
-        app:layout_constraintTop_toBottomOf="@+id/calendarioIcon3" />
+        app:layout_constraintEnd_toEndOf="@+id/saidaIcon"
+        app:layout_constraintStart_toStartOf="@+id/saidaIcon"
+        app:layout_constraintTop_toBottomOf="@+id/saidaIcon" />
 
     <TextView
         android:id="@+id/textView4"
