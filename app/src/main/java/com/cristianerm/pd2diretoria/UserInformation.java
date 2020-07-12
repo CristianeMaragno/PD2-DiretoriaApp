@@ -2,7 +2,6 @@ package com.cristianerm.pd2diretoria;
 
 public class UserInformation {
     String nome;
-    String turma;
     String status;
 
     public UserInformation() {
