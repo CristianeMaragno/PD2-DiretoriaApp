@@ -72,7 +72,7 @@ public class OuvidoriaActivity extends AppCompatActivity {
             }
         });
 
-        myRef.limitToLast(15).addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
 
             ArrayList<String> array  = new ArrayList<>();
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(OuvidoriaActivity.this, android.R.layout.simple_list_item_1, array);
