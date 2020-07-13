@@ -57,7 +57,7 @@
         android:background="@drawable/edit_text_background"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Evento"
+        android:hint="data(xx/xx) e evento"
         android:inputType="textMultiLine"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"

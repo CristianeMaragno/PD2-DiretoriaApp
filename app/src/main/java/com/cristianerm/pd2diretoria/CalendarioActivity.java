@@ -97,11 +97,9 @@ public class CalendarioActivity extends AppCompatActivity {
 
                 final String mes_selecionado = mes.getItemAtPosition(mes.getSelectedItemPosition()).toString();
 
-                Toast.makeText(CalendarioActivity.this, evento + mes_selecionado + ano, Toast.LENGTH_SHORT).show();
-
                 if(!evento.equals("")) {
                     error_mensagem.setText("");
-                    Upload_evento(evento, ano);
+                    Upload_evento(evento, ano, mes_selecionado);
                 }else{
                     error_mensagem.setText("O campo de texto está vazio");
                 }
@@ -109,7 +107,12 @@ public class CalendarioActivity extends AppCompatActivity {
         });
     }
 
-    private void Upload_evento(String evento, String ano){
+    private void Upload_evento(String evento, String ano, String mes_selecionado){
+        String ref = mes_selecionado + "_" + ano;
 
+        String key = myRef.push().getKey();
+        myRef.child(ref).child(key).child("evento").setValue(evento);
+
+        Toast.makeText(CalendarioActivity.this, "Upload de evento concluído", Toast.LENGTH_SHORT).show();
     }
 }
