@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class CalendarioActivity extends AppCompatActivity {
     ListView listView;
     Spinner mes2;
     TextView error_mensagem;
+    ProgressBar progressBar;
 
     private static final String TAG = "Calendario Activity";
 
@@ -62,6 +64,9 @@ public class CalendarioActivity extends AppCompatActivity {
         mes2 = (Spinner) findViewById(R.id.spinner_Calendario_mes2);
         listView = (ListView) findViewById(R.id.listCalendar);
         error_mensagem = (TextView) findViewById(R.id.textErrorCalendario);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarCalendario);
+
+        progressBar.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -107,6 +112,8 @@ public class CalendarioActivity extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+
                 String evento = texto.getText().toString();
 
                 Calendar now = Calendar.getInstance();
@@ -145,6 +152,7 @@ public class CalendarioActivity extends AppCompatActivity {
         String key = myRef.push().getKey();
         myRef.child(ref).child(key).child("evento").setValue(evento);
 
+        progressBar.setVisibility(View.GONE);
         Toast.makeText(CalendarioActivity.this, "Upload de evento concluído", Toast.LENGTH_SHORT).show();
     }
 
