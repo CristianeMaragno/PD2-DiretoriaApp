@@ -153,6 +153,7 @@ public class CalendarioActivity extends AppCompatActivity {
         myRef.child(ref).child(key).child("evento").setValue(evento);
 
         progressBar.setVisibility(View.GONE);
+        texto.getText().clear();
         Toast.makeText(CalendarioActivity.this, "Upload de evento concluído", Toast.LENGTH_SHORT).show();
     }
 
