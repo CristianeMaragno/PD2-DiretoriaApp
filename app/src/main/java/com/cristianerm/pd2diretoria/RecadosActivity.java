@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,10 +17,15 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 public class RecadosActivity extends AppCompatActivity {
@@ -35,6 +42,7 @@ public class RecadosActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
+    private DatabaseReference myRefRec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,7 @@ public class RecadosActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatase.getReference().child("recados");
+        myRefRec = mFirebaseDatase.getReference().child("recados_lidos");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -87,6 +96,35 @@ public class RecadosActivity extends AppCompatActivity {
                 }else{
                     error_mensagem.setText("O campo de texto está vazio");
                 }
+            }
+        });
+
+        myRefRec.addValueEventListener(new ValueEventListener() {
+
+            ArrayList<String> array  = new ArrayList<>();
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(RecadosActivity.this, android.R.layout.simple_list_item_1, array);
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                array.clear();
+                adapter.notifyDataSetChanged();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    RecadosInformation rInfo = new RecadosInformation();
+                    rInfo.setMensagem_lida(ds.getValue(RecadosInformation.class).getMensagem_lida());
+
+                    Log.d(TAG, "showData: Recado lido: " + rInfo.getMensagem_lida());
+
+                    array.add(rInfo.getMensagem_lida());
+                }
+
+                Collections.reverse(array);
+                listVistos.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
