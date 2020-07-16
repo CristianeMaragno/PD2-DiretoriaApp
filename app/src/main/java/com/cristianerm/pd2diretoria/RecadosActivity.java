@@ -112,10 +112,12 @@ public class RecadosActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     RecadosInformation rInfo = new RecadosInformation();
                     rInfo.setMensagem_lida(ds.getValue(RecadosInformation.class).getMensagem_lida());
+                    rInfo.setUser(ds.getValue(RecadosInformation.class).getUser());
 
                     Log.d(TAG, "showData: Recado lido: " + rInfo.getMensagem_lida());
+                    Log.d(TAG, "showData: Aluno: " + rInfo.getUser());
 
-                    array.add(rInfo.getMensagem_lida());
+                    array.add(rInfo.getUser() + "\n" +rInfo.getMensagem_lida());
                 }
 
                 Collections.reverse(array);
