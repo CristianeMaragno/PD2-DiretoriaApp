@@ -16,4 +16,19 @@
         <item>Dezembro</item>
     </string-array>
 
+    <string-array name="status">
+        <item>Aluno(a)</item>
+        <item>Professor(a)</item>
+        <item>Membro da direção</item>
+    </string-array>
+
+    <string-array name="turmas">
+        <item>Berçário</item>
+        <item>Maternal I</item>
+        <item>Infantil I</item>
+        <item>Infantil II</item>
+        <item>Infantil III</item>
+        <item>Todas</item>
+    </string-array>
+
 </resources>

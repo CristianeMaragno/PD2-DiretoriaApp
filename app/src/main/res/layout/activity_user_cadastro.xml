@@ -71,7 +71,7 @@
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/Vermelho"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColor="@color/Vermelho"
         android:textCursorDrawable="@null"
         app:layout_constraintBottom_toTopOf="@+id/senha_usuario_cadastro"
@@ -93,7 +93,7 @@
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/Vermelho"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textColor="@color/Vermelho"
         android:textCursorDrawable="@null"
         app:layout_constraintBottom_toTopOf="@+id/spinner_status_cadastro"
@@ -136,7 +136,7 @@
         app:layout_constraintVertical_bias="0.75" />
 
     <Button
-        android:id="@+id/button_calendario"
+        android:id="@+id/button_cadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_style"
@@ -148,5 +148,13 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_turma_cadastro"
         android:paddingRight="30dp"
         android:paddingLeft="30dp"/>
+
+    <TextView
+        android:id="@+id/textErrorCadastroUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Vermelho"
+        app:layout_constraintStart_toStartOf="@+id/senha_usuario_cadastro"
+        app:layout_constraintTop_toBottomOf="@+id/senha_usuario_cadastro" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
