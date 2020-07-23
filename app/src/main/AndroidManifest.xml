@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FinanceiroActivity"></activity>
+        <activity android:name=".UserRemovalActivity"></activity>
+        <activity android:name=".UserCadastroActivity" />
+        <activity android:name=".FinanceiroActivity" />
         <activity android:name=".DiarioActivity" />
         <activity android:name=".SaidaActivity" />
         <activity android:name=".OuvidoriaActivity" />
