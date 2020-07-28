@@ -7,16 +7,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class UserRemovalActivity extends AppCompatActivity {
 
@@ -43,7 +49,7 @@ public class UserRemovalActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatase.getReference();
+        myRef = mFirebaseDatase.getReference().child("alunos");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -66,17 +72,37 @@ public class UserRemovalActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<RemoverUserItem> usersList = new ArrayList<>();
-        usersList.add(new RemoverUserItem(R.drawable.ic_delete, "Evellyn Recco"));
-        usersList.add(new RemoverUserItem(R.drawable.ic_delete, "Isadora Lucas"));
-        usersList.add(new RemoverUserItem(R.drawable.ic_delete, "Vicente Alves"));
-        usersList.add(new RemoverUserItem(R.drawable.ic_delete, "Anitta Almeida"));
-        usersList.add(new RemoverUserItem(R.drawable.ic_delete, "Livia Cechinel"));
+        myRef.addValueEventListener(new ValueEventListener() {
 
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new AdapterUserRemoval(usersList);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+            ArrayList<RemoverUserItem> usersList = new ArrayList<>();
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                usersList.clear();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    for(DataSnapshot ds2 : ds.getChildren()){
+                        UserRemovalInformation uInfo = new UserRemovalInformation();
+                        uInfo.setNome(ds2.getValue(UserRemovalInformation.class).getNome());
+
+                        usersList.add(new RemoverUserItem(R.drawable.ic_delete, uInfo.getNome()));
+                    }
+                }
+
+                mRecyclerView.setHasFixedSize(true);
+                mLayoutManager = new LinearLayoutManager(UserRemovalActivity.this);
+                mAdapter = new AdapterUserRemoval(usersList);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                mRecyclerView.setAdapter(mAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
