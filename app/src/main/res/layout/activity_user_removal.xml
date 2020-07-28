@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_remover_user"
+        android:id="@+id/recycler_view_remover_users"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_view_h"
         android:layout_marginLeft="@dimen/list_view_margin_left"
