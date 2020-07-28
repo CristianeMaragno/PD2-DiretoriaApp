@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,8 @@ import java.util.Collections;
 public class UserRemovalActivity extends AppCompatActivity {
 
     ImageButton voltar;
+    Spinner status_users;
+    ArrayList<RemoverUserItem> usersList;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -45,11 +49,12 @@ public class UserRemovalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_removal);
 
         voltar = (ImageButton) findViewById(R.id.buttonVoltarUserRemoval);
+        status_users = (Spinner) findViewById(R.id.spinner_status_removal);
         mRecyclerView = findViewById(R.id.recycler_view_remover_users);
+        usersList = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatase.getReference().child("alunos");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -72,9 +77,41 @@ public class UserRemovalActivity extends AppCompatActivity {
             }
         });
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        ///// Spinner status dos users
+        ArrayAdapter<CharSequence> adapter_status = ArrayAdapter.createFromResource(this,
+                R.array.status, android.R.layout.simple_spinner_item);
+        adapter_status.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        status_users.setAdapter(adapter_status);
+        ////
 
-            ArrayList<RemoverUserItem> usersList = new ArrayList<>();
+        status_users.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String status_selecionado = status_users.getItemAtPosition(status_users.getSelectedItemPosition()).toString();
+                recupera_users(status_selecionado);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+    }
+
+    public void recupera_users(String status_selecionado){
+        usersList.clear();
+
+        if(status_selecionado.equals("Aluno(a)")){
+            myRef = mFirebaseDatase.getReference().child("alunos");
+        }else if(status_selecionado.equals("Professor(a)")){
+            myRef = mFirebaseDatase.getReference().child("professores");
+        }else if(status_selecionado.equals("Membro da direção")){
+            myRef = mFirebaseDatase.getReference().child("diretoria");
+        }
+
+        myRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -103,6 +140,5 @@ public class UserRemovalActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }

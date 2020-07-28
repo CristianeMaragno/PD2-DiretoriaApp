@@ -24,7 +24,7 @@
 
     <string-array name="turmas">
         <item>Berçário</item>
-        <item>Maternal I</item>
+        <item>Maternal</item>
         <item>Infantil I</item>
         <item>Infantil II</item>
         <item>Infantil III</item>
