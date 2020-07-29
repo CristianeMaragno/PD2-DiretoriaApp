@@ -30,7 +30,9 @@ public class AdapterUserRemoval extends RecyclerView.Adapter<AdapterUserRemoval.
 
         private FirebaseDatabase mFirebaseDatase;
         private DatabaseReference myRef;
+        private DatabaseReference myRef2;
         private DatabaseReference myRefDeleteUser;
+        private DatabaseReference myRefDeleteUserFromUsersGroup;
         private DatabaseReference myRefDeleteUserFromUsers;
 
         public AdapterUserRemovalViewHolder(View itemView) {
@@ -55,7 +57,7 @@ public class AdapterUserRemoval extends RecyclerView.Adapter<AdapterUserRemoval.
                     .setMessage("Você tem certeza que deseja deletar " + name_user + "?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            DeleteUserInfoFromDatabase(name_user);
+                            GetUserInfo(name_user);
                             //DeleteUser();
                         }
                     })
@@ -68,24 +70,50 @@ public class AdapterUserRemoval extends RecyclerView.Adapter<AdapterUserRemoval.
                     .show();
         }
 
-        public void DeleteUserInfoFromDatabase(final String name_user){
-
+        public void GetUserInfo(final String name_user){
             mFirebaseDatase = FirebaseDatabase.getInstance();
-            myRef = mFirebaseDatase.getReference().child("alunos").child(name_user);
+            myRef = mFirebaseDatase.getReference().child("user").child(name_user);
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         UserInformation uInfo = new UserInformation();
-                        uInfo.setUser_id(ds.getValue(UserInformation.class).getUser_id());
+                        uInfo.setStatus(ds.getValue(UserInformation.class).getStatus());
 
-                        String user_id = uInfo.getUser_id();
+                        final String user_status = uInfo.getStatus();
+
+                        DeleteUserInfoFromDatabase(name_user, user_status);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        public void DeleteUserInfoFromDatabase(final String name_user, final String user_status){
+            myRef2 = mFirebaseDatase.getReference().child(user_status).child(name_user);
+
+            myRef2.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        UserInformation idInfo = new UserInformation();
+                        idInfo.setUser_id(ds.getValue(UserInformation.class).getUser_id());
+
+                        String user_id = idInfo.getUser_id();
 
                         myRefDeleteUser = mFirebaseDatase.getReference().child(user_id);
-                        myRefDeleteUserFromUsers = mFirebaseDatase.getReference().child("alunos").child(name_user);
+                        myRefDeleteUserFromUsersGroup = mFirebaseDatase.getReference().child(user_status).child(name_user);
+                        myRefDeleteUserFromUsers = mFirebaseDatase.getReference().child("user").child(name_user);
 
                         myRefDeleteUser.removeValue();
+                        myRefDeleteUserFromUsersGroup.removeValue();
                         myRefDeleteUserFromUsers.removeValue();
                     }
                 }
