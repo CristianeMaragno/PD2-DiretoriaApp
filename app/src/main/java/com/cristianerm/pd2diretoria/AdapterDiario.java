@@ -1,5 +1,6 @@
 package com.cristianerm.pd2diretoria;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
 
     private ArrayList<DiarioItem> mDiarioList;
 
-    public static class AdapterDiarioViewHolder extends RecyclerView.ViewHolder {
+    public static class AdapterDiarioViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mTextView;
         public ImageView mImageView;
@@ -24,6 +25,12 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
             mTextView = itemView.findViewById(R.id.textViewDiarioItem);
             mImageView = itemView.findViewById(R.id.imageViewDiarioItem);
 
+            mImageView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("Adapter Diario", "On click of image view!!!");
         }
     }
     public AdapterDiario(ArrayList<DiarioItem> diarioList) {
