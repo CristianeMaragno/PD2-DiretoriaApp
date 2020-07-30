@@ -31,4 +31,12 @@
         <item>Todas</item>
     </string-array>
 
+    <string-array name="turmas_alunos">
+        <item>Berçário</item>
+        <item>Maternal</item>
+        <item>Infantil I</item>
+        <item>Infantil II</item>
+        <item>Infantil III</item>
+    </string-array>
+
 </resources>
