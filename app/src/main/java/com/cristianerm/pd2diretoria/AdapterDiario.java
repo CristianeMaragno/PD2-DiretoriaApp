@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDiarioViewHolder> {
@@ -19,11 +21,13 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
 
         public TextView mTextView;
         public ImageView mImageView;
+        public ImageView mImageViewImage;
 
         public AdapterDiarioViewHolder(View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.textViewDiarioItem);
             mImageView = itemView.findViewById(R.id.imageViewDiarioItem);
+            mImageViewImage = itemView.findViewById(R.id.image_view_image_diario_item);
 
             mImageView.setOnClickListener(this);
         }
@@ -33,6 +37,7 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
             Log.d("Adapter Diario", "On click of image view!!!");
         }
     }
+
     public AdapterDiario(ArrayList<DiarioItem> diarioList) {
         mDiarioList = diarioList;
     }
@@ -47,6 +52,9 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
         DiarioItem currentItem = mDiarioList.get(position);
         holder.mImageView.setImageResource(currentItem.getImageResource());
         holder.mTextView.setText(currentItem.getText());
+        Picasso.get()
+                .load(currentItem.getImageUrl())
+                .into(holder.mImageViewImage);
     }
     @Override
     public int getItemCount() {

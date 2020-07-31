@@ -113,10 +113,12 @@ public class DiarioActivity extends AppCompatActivity {
                     DiarioInformation dInfo = new DiarioInformation();
                     dInfo.setDate(ds.getValue(DiarioInformation.class).getDate());
                     dInfo.setMensagem(ds.getValue(DiarioInformation.class).getMensagem());
+                    dInfo.setImageUrl(ds.getValue(DiarioInformation.class).getImageUrl());
 
                     String post_text = dInfo.getDate() + "\n" + dInfo.getMensagem();
+                    String mImageUrl = dInfo.getImageUrl();
 
-                    diarioList.add(new DiarioItem(R.drawable.ic_delete, post_text));
+                    diarioList.add(new DiarioItem(R.drawable.ic_delete, post_text, mImageUrl));
                 }
 
                 mRecyclerView.setHasFixedSize(true);

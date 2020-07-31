@@ -26,5 +26,12 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
             android:padding="2dp" />
+
+        <ImageView
+            android:id="@+id/image_view_image_diario_item"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/textViewDiarioItem"
+            android:layout_marginTop="36dp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
