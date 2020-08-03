@@ -97,7 +97,7 @@ public class DiarioActivity extends AppCompatActivity {
         });
     }
 
-    private void GetDiarioPosts(String turma_selecionada){
+    private void GetDiarioPosts(final String turma_selecionada){
         diarioList.clear();
 
         myRef = mFirebaseDatase.getReference().child("diario_professor").child(turma_selecionada);
@@ -118,7 +118,7 @@ public class DiarioActivity extends AppCompatActivity {
                     String post_text = dInfo.getDate() + "\n" + dInfo.getMensagem();
                     String mImageUrl = dInfo.getImageUrl();
 
-                    diarioList.add(new DiarioItem(R.drawable.ic_delete, post_text, mImageUrl));
+                    diarioList.add(new DiarioItem(R.drawable.ic_delete, post_text, mImageUrl, turma_selecionada));
                 }
 
                 mRecyclerView.setHasFixedSize(true);

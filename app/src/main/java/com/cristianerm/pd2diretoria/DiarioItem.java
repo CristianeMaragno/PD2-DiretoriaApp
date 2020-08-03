@@ -4,11 +4,13 @@ public class DiarioItem {
     private int mImageResource;
     private String mText;
     private String mImageUrl;
+    private String mTurmaSelecionada;
 
-    public DiarioItem(int imageResource, String text, String imageUrl) {
+    public DiarioItem(int imageResource, String text, String imageUrl, String turmaSelecionada) {
         mImageResource = imageResource;
         mText = text;
         mImageUrl = imageUrl;
+        mTurmaSelecionada = turmaSelecionada;
     }
 
     public int getImageResource() {
@@ -23,4 +25,7 @@ public class DiarioItem {
         return mImageUrl;
     }
 
+    public String getmTurmaSelecionada() {
+        return mTurmaSelecionada;
+    }
 }
