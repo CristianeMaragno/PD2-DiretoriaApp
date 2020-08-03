@@ -26,6 +26,7 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
     private ArrayList<DiarioItem> mDiarioList;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
+    private DatabaseReference myRefDeletePost;
 
     public static class AdapterDiarioViewHolder extends RecyclerView.ViewHolder {
 
@@ -91,7 +92,7 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
                 .show();
     }
 
-    private void DeletePost(int position, String turmaSelecionada, String data){
+    private void DeletePost(int position, String turmaSelecionada, final String data_post){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference().child("diario_professor").child(turmaSelecionada);
         Log.d("Adapter Diario", turmaSelecionada);
@@ -104,8 +105,12 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
                     DiarioInformation dInfo = new DiarioInformation();
                     dInfo.setDate(ds.getValue(DiarioInformation.class).getDate());
 
+                    String database_key = ds.getKey();
+
                     String data = dInfo.getDate();
                     Log.d("Adapter Diario", data);
+                    Log.d("Adapter Diario", database_key);
+                    
                 }
             }
 
