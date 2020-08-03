@@ -69,18 +69,18 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
             @Override
             public void onClick(View view) {
                 String text = holder.mTextView.getText().toString();
-                DeleteDiarioPost(position, turmaSelecionada, view, text.substring(0,27));
+                DeleteDiarioPost(turmaSelecionada, view, text.substring(0,27));
             }
         });
     }
 
-    private void DeleteDiarioPost(final int position, final String turmaSelecionada, View v, final String text){
+    private void DeleteDiarioPost(final String turmaSelecionada, View v, final String text){
         new AlertDialog.Builder(v.getContext())
                 .setTitle("Comfirmação:")
                 .setMessage("Você tem certeza que deseja deletar este post?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        DeletePost(position, turmaSelecionada, text);
+                        DeletePost(turmaSelecionada, text);
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -92,7 +92,7 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
                 .show();
     }
 
-    private void DeletePost(int position, String turmaSelecionada, final String data_post){
+    private void DeletePost(final String turmaSelecionada, final String data_post){
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference().child("diario_professor").child(turmaSelecionada);
         Log.d("Adapter Diario", turmaSelecionada);
@@ -105,12 +105,13 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
                     DiarioInformation dInfo = new DiarioInformation();
                     dInfo.setDate(ds.getValue(DiarioInformation.class).getDate());
 
-                    String database_key = ds.getKey();
-
                     String data = dInfo.getDate();
-                    Log.d("Adapter Diario", data);
-                    Log.d("Adapter Diario", database_key);
-                    
+
+                    if(data.equals(data_post)){
+                        String database_key = ds.getKey();
+                        myRefDeletePost = mFirebaseDatabase.getReference().child("diario_professor").child(turmaSelecionada).child(database_key);
+                        myRefDeletePost.removeValue();
+                    }
                 }
             }
 
