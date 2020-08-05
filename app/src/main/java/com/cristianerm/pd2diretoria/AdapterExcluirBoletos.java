@@ -31,6 +31,7 @@ public class AdapterExcluirBoletos extends RecyclerView.Adapter<AdapterExcluirBo
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
 
+
     public static class AdapterExcluirBoletosViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTextView;
@@ -88,7 +89,26 @@ public class AdapterExcluirBoletos extends RecyclerView.Adapter<AdapterExcluirBo
     }
 
     private void DeleteBoleto(String aluno, String boletoName){
-        
+        String nome_boleto = aluno + "_" + boletoName + ".pdf";
+        Log.d("Adapter Excluir Boletos", nome_boleto);
+        String url_file = "gs://pd2apps.appspot.com/Boletos/"+nome_boleto;
+        Log.d("Adapter Excluir Boletos", url_file);
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl(url_file);
+
+
+        storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("Adapter Excluir Boletos", "File deleted successfully");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Uh-oh, an error occurred!
+            }
+        });
     }
 
     @Override
