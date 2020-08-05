@@ -8,14 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,7 +55,7 @@ public class AdapterExcluirBoletos extends RecyclerView.Adapter<AdapterExcluirBo
     }
     @Override
     public void onBindViewHolder(final AdapterExcluirBoletos.AdapterExcluirBoletosViewHolder holder, final int position) {
-        ExcluirBoletosItem currentItem = mBoletosList.get(position);
+        final ExcluirBoletosItem currentItem = mBoletosList.get(position);
         holder.mImageView.setImageResource(currentItem.getImageResource());
         holder.mTextView.setText(currentItem.getText());
 
@@ -59,13 +64,31 @@ public class AdapterExcluirBoletos extends RecyclerView.Adapter<AdapterExcluirBo
             public void onClick(View view) {
                 String boletoName = currentItem.getText();
                 String aluno = currentItem.getUserName();
-                DeleteBoleto(aluno, boletoName);
+                ConfirmarDelete(aluno, boletoName, view);
             }
         });
     }
 
-    private void DeleteBoleto(String aluno, String boletoName){
+    private void ConfirmarDelete(final String aluno, final String boletoName, View v){
+        new AlertDialog.Builder(v.getContext())
+                .setTitle("Comfirmação:")
+                .setMessage("Você tem certeza que deseja deletar este boleto?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        DeleteBoleto(aluno, boletoName);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Não fazer nada
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 
+    private void DeleteBoleto(String aluno, String boletoName){
+        
     }
 
     @Override
