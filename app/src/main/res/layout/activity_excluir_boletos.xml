@@ -4,6 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Amarelo"
     tools:context=".ExcluirBoletosActivity">
+
+    <ImageButton
+        android:id="@+id/buttonVoltarExcluirBoletos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator"
+        android:tint="@color/Vermelho"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="EXCLUIR BOLETOS"
+        android:textColor="@color/Vermelho"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aluno"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerAlunoExcluirBoletos"
+        app:layout_constraintStart_toStartOf="@+id/spinnerAlunoExcluirBoletos" />
+
+    <Spinner
+        android:id="@+id/spinnerAlunoExcluirBoletos"
+        android:layout_width="@dimen/width_spinner"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view_excluir_boletos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_excluir_boletos"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginLeft="@dimen/list_view_margin_left"
+        android:layout_marginRight="@dimen/list_view_margin_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
