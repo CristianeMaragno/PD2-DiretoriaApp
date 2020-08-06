@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 
 public class UploadBoletosActivity extends AppCompatActivity {
 
@@ -39,6 +42,8 @@ public class UploadBoletosActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
+    private DatabaseReference myRefUserInfo;
+    private DatabaseReference myRefAddBoleto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +120,56 @@ public class UploadBoletosActivity extends AppCompatActivity {
         uploadBoleto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SelecionaBoleto();
             }
         });
 
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Verificar se algum arquivo foi selecionado
+                //Adicionar informações do boleto no database
+                InserirBoletoNoDatabase();
+                //Adicionar boleto no Firebase Storage
+            }
+        });
+    }
+
+    private void SelecionaBoleto(){
+
+    }
+    private void InserirBoletoNoDatabase(){
+        String aluno_selecionado = alunos.getItemAtPosition(alunos.getSelectedItemPosition()).toString();
+        final String mes_selecionado = mes.getItemAtPosition(mes.getSelectedItemPosition()).toString();
+
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        final String ano = String.valueOf(year);
+
+        myRefUserInfo = mFirebaseDatabase.getReference().child("alunos").child(aluno_selecionado);
+
+        myRefUserInfo.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    UserInformation uInfo = new UserInformation();
+                    uInfo.setUser_id(ds.getValue(UserInformation.class).getUser_id());
+
+                    Log.d(TAG, "showData: User_id: " + uInfo.getUser_id());
+                    String userId = uInfo.getUser_id();
+
+                    myRefAddBoleto = mFirebaseDatabase.getReference().child(userId).child("boletos").child(ano);
+
+                    String key = myRefAddBoleto.push().getKey();
+                    myRefAddBoleto.child(key).child("ano").setValue(ano);
+                    myRefAddBoleto.child(key).child("mes").setValue(mes_selecionado);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
