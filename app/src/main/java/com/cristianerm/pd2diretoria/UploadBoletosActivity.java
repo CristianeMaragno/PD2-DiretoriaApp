@@ -147,13 +147,15 @@ public class UploadBoletosActivity extends AppCompatActivity {
                 String aluno_selecionado = alunos.getItemAtPosition(alunos.getSelectedItemPosition()).toString();
                 final String mes_selecionado = mes.getItemAtPosition(mes.getSelectedItemPosition()).toString();
 
-                //Verificar se algum arquivo foi selecionado
+                if(uriData != null){
+                    //Adicionar informações do boleto no database
+                    InserirBoletoNoDatabase(aluno_selecionado, mes_selecionado);
 
-                //Adicionar informações do boleto no database
-                InserirBoletoNoDatabase(aluno_selecionado, mes_selecionado);
-
-                //Adicionar boleto no Firebase Storage
-                uploadFile(aluno_selecionado, mes_selecionado);
+                    //Adicionar boleto no Firebase Storage
+                    uploadFile(aluno_selecionado, mes_selecionado);
+                }else{
+                    errorMessage.setText("Selecione um arquivo");
+                }
             }
         });
     }
@@ -172,8 +174,8 @@ public class UploadBoletosActivity extends AppCompatActivity {
         if (requestCode == PICK_PDF_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             //if a file is selected
             if (data.getData() != null) {
-                //uploading the file
                 uriData = data.getData();
+                nomeBoleto.setText("Arquivo Selecionado");
             }else{
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
             }
@@ -192,7 +194,7 @@ public class UploadBoletosActivity extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        nomeBoleto.setText("File Uploaded Successfully");
+                        errorMessage.setText("File Uploaded Successfully");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
