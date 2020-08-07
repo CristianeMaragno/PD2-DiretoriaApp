@@ -51,6 +51,7 @@ public class UploadBoletosActivity extends AppCompatActivity {
     private static final String TAG = "Upload Boletos Activity";
     public static final String STORAGE_PATH_UPLOADS = "Boletos/";
     final static int PICK_PDF_CODE = 2342;
+    private Uri uriData;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
@@ -152,7 +153,7 @@ public class UploadBoletosActivity extends AppCompatActivity {
                 InserirBoletoNoDatabase(aluno_selecionado, mes_selecionado);
 
                 //Adicionar boleto no Firebase Storage
-                UploadBoletoToStorage(aluno_selecionado, mes_selecionado);
+                uploadFile(aluno_selecionado, mes_selecionado);
             }
         });
     }
@@ -172,25 +173,26 @@ public class UploadBoletosActivity extends AppCompatActivity {
             //if a file is selected
             if (data.getData() != null) {
                 //uploading the file
-                uploadFile(data.getData());
+                uriData = data.getData();
             }else{
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void uploadFile(Uri data) {
-
-        StorageReference sRef = mStorageReference.child(STORAGE_PATH_UPLOADS + System.currentTimeMillis() + ".pdf");
-        sRef.putFile(data)
+    private void uploadFile(String aluno_selecionado, String mes_selecionado) {
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        final String ano = String.valueOf(year);
+        //Evellyn Recco_Março 2020.pdf
+        String nome_boleto = aluno_selecionado + "_" + mes_selecionado + " " + ano + ".pdf";
+        StorageReference sRef = mStorageReference.child(STORAGE_PATH_UPLOADS + nome_boleto);
+        sRef.putFile(uriData)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         nomeBoleto.setText("File Uploaded Successfully");
-
-                        //UploadPDF upload = new UploadPDF(editTextFilename.getText().toString(), taskSnapshot.getDownloadUrl().toString());
-                        //mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -242,10 +244,6 @@ public class UploadBoletosActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void UploadBoletoToStorage(String aluno_selecionado, String mes_selecionado){
-
     }
 
     @Override
