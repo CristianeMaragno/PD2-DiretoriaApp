@@ -2,9 +2,15 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +29,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +49,8 @@ public class UploadBoletosActivity extends AppCompatActivity {
     TextView errorMessage;
 
     private static final String TAG = "Upload Boletos Activity";
+    public static final String STORAGE_PATH_UPLOADS = "Boletos/";
+    final static int PICK_PDF_CODE = 2342;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
@@ -44,6 +58,7 @@ public class UploadBoletosActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private DatabaseReference myRefUserInfo;
     private DatabaseReference myRefAddBoleto;
+    private StorageReference mStorageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +76,7 @@ public class UploadBoletosActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference().child("alunos");
+        mStorageReference = FirebaseStorage.getInstance().getReference();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -127,20 +143,73 @@ public class UploadBoletosActivity extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String aluno_selecionado = alunos.getItemAtPosition(alunos.getSelectedItemPosition()).toString();
+                final String mes_selecionado = mes.getItemAtPosition(mes.getSelectedItemPosition()).toString();
+
                 //Verificar se algum arquivo foi selecionado
+
                 //Adicionar informações do boleto no database
-                InserirBoletoNoDatabase();
+                InserirBoletoNoDatabase(aluno_selecionado, mes_selecionado);
+
                 //Adicionar boleto no Firebase Storage
+                UploadBoletoToStorage(aluno_selecionado, mes_selecionado);
             }
         });
     }
 
     private void SelecionaBoleto(){
-
+        Intent intent = new Intent();
+        intent.setType("application/pdf");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_PDF_CODE);
     }
-    private void InserirBoletoNoDatabase(){
-        String aluno_selecionado = alunos.getItemAtPosition(alunos.getSelectedItemPosition()).toString();
-        final String mes_selecionado = mes.getItemAtPosition(mes.getSelectedItemPosition()).toString();
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //when the user choses the file
+        if (requestCode == PICK_PDF_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            //if a file is selected
+            if (data.getData() != null) {
+                //uploading the file
+                uploadFile(data.getData());
+            }else{
+                Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void uploadFile(Uri data) {
+
+        StorageReference sRef = mStorageReference.child(STORAGE_PATH_UPLOADS + System.currentTimeMillis() + ".pdf");
+        sRef.putFile(data)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @SuppressWarnings("VisibleForTests")
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        nomeBoleto.setText("File Uploaded Successfully");
+
+                        //UploadPDF upload = new UploadPDF(editTextFilename.getText().toString(), taskSnapshot.getDownloadUrl().toString());
+                        //mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @SuppressWarnings("VisibleForTests")
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        errorMessage.setText((int) progress + "% Uploading...");
+                    }
+                });
+    }
+
+    private void InserirBoletoNoDatabase(String aluno_selecionado, final String mes_selecionado){
 
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
@@ -173,6 +242,10 @@ public class UploadBoletosActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void UploadBoletoToStorage(String aluno_selecionado, String mes_selecionado){
+
     }
 
     @Override
