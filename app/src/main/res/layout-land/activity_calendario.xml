@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Amarelo"
+    tools:context=".CalendarioActivity">
+
+    <ImageButton
+        android:id="@+id/buttonVoltarCalendario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator"
+        android:tint="@color/Vermelho"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CALENDÁRIO"
+        android:textColor="@color/Vermelho"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_Calendario_mes2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mês do evento"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_Calendario_mes"
+        app:layout_constraintStart_toStartOf="@+id/spinner_Calendario_mes" />
+
+    <Spinner
+        android:id="@+id/spinner_Calendario_mes"
+        android:layout_width="@dimen/width_spinner"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/editTextCalendario"
+        app:layout_constraintTop_toTopOf="@+id/spinner_Calendario_mes2" />
+
+    <Spinner
+        android:id="@+id/spinner_Calendario_mes2"
+        android:layout_width="@dimen/width_spinner"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/listCalendar"
+        app:layout_constraintStart_toStartOf="@+id/listCalendar" />
+
+    <EditText
+        android:id="@+id/editTextCalendario"
+        android:layout_width="@dimen/width_big_edittext"
+        android:layout_height="70dp"
+        android:background="@drawable/edit_text_background"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="data(xx/xx) e evento"
+        android:inputType="textMultiLine"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/Vermelho"
+        android:textCursorDrawable="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/listCalendar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <Button
+        android:id="@+id/button_calendario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
+        android:text="Enviar"
+        android:textColor="@color/Amarelo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextCalendario"
+        app:layout_constraintStart_toStartOf="@+id/editTextCalendario"
+        app:layout_constraintTop_toBottomOf="@+id/textErrorCalendario" />
+
+    <ListView
+        android:id="@+id/listCalendar"
+        android:layout_width="325dp"
+        android:layout_height="259dp"
+        android:divider="@color/Amarelo"
+        android:dividerHeight="13.0sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textErrorCalendario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Vermelho"
+        app:layout_constraintStart_toStartOf="@+id/editTextCalendario"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCalendario" />
+
+    <ProgressBar
+        android:id="@+id/progressBarCalendario"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:theme="@style/ProgressTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextCalendario"
+        app:layout_constraintStart_toStartOf="@+id/editTextCalendario"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
