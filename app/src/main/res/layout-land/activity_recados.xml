@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Amarelo"
+    tools:context=".RecadosActivity">
+
+    <ImageButton
+        android:id="@+id/buttonVoltarRecados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator"
+        android:tint="@color/Vermelho"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RECADOS"
+        android:textColor="@color/Vermelho"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/listRecados"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextRecados"
+        android:layout_width="@dimen/width_big_edittext"
+        android:layout_height="70dp"
+        android:background="@drawable/edit_text_background"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Recado"
+        android:inputType="textMultiLine"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/Vermelho"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toStartOf="@+id/listRecados"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/listRecados" />
+
+    <TextView
+        android:id="@+id/textErrorRecados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Vermelho"
+        app:layout_constraintStart_toStartOf="@+id/editTextRecados"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRecados" />
+
+    <Button
+        android:id="@+id/button_recados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
+        android:text="Enviar"
+        android:textColor="@color/Amarelo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextRecados"
+        app:layout_constraintStart_toStartOf="@+id/editTextRecados"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRecados" />
+
+    <ListView
+        android:id="@+id/listRecados"
+        android:layout_width="297dp"
+        android:layout_height="281dp"
+        android:divider="@color/Amarelo"
+        android:dividerHeight="13.0sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Amarelo"
-    tools:context=".OuvidoriaActivity">
+    tools:context=".UsersActivity">
 
     <ImageButton
-        android:id="@+id/buttonVoltarOuvidoria"
+        android:id="@+id/buttonVoltarUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="OUVIDORIA"
+        android:text="USUÁRIOS"
         android:textColor="@color/Vermelho"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -33,28 +33,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/listOuvidoria"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/list_view_h"
-        android:layout_marginLeft="@dimen/list_view_margin_left"
-        android:layout_marginRight="@dimen/list_view_margin_right"
-        android:divider="@color/Amarelo"
-        android:dividerHeight="13.0sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/progressBarOuvidoria"
-        style="?android:attr/progressBarStyle"
+    <Button
+        android:id="@+id/button_cadastrar_usuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:theme="@style/ProgressTheme"
+        android:background="@drawable/button_style"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="Cadastrar usuário"
+        android:textColor="@color/Amarelo"
+        app:layout_constraintBottom_toTopOf="@+id/button_remover_usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <Button
+        android:id="@+id/button_remover_usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="Remover usuário"
+        android:textColor="@color/Amarelo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

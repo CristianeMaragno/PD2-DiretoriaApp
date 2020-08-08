@@ -24,11 +24,11 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:text="OUVIDORIA"
         android:textColor="@color/Vermelho"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/listOuvidoria"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +36,7 @@
     <ListView
         android:id="@+id/listOuvidoria"
         android:layout_width="0dp"
-        android:layout_height="@dimen/list_view_h"
+        android:layout_height="@dimen/list_view_h_land"
         android:layout_marginLeft="@dimen/list_view_margin_left"
         android:layout_marginRight="@dimen/list_view_margin_right"
         android:divider="@color/Amarelo"

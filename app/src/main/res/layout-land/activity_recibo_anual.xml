@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Amarelo"
-    tools:context=".OuvidoriaActivity">
+    tools:context=".ReciboAnualActivity">
 
     <ImageButton
-        android:id="@+id/buttonVoltarOuvidoria"
+        android:id="@+id/buttonVoltarReciboAnual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -24,19 +24,19 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="OUVIDORIA"
+        android:text="RECIBO ANUAL"
         android:textColor="@color/Vermelho"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/listReciboAnual"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/listOuvidoria"
+        android:id="@+id/listReciboAnual"
         android:layout_width="0dp"
-        android:layout_height="@dimen/list_view_h"
+        android:layout_height="@dimen/list_view_h_land"
         android:layout_marginLeft="@dimen/list_view_margin_left"
         android:layout_marginRight="@dimen/list_view_margin_right"
         android:divider="@color/Amarelo"
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progressBarOuvidoria"
+        android:id="@+id/progressBarReciboAnual"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
