@@ -122,8 +122,9 @@ public class UserRemovalActivity extends AppCompatActivity {
                     for(DataSnapshot ds2 : ds.getChildren()){
                         UserRemovalInformation uInfo = new UserRemovalInformation();
                         uInfo.setNome(ds2.getValue(UserRemovalInformation.class).getNome());
+                        uInfo.setEmail(ds2.getValue(UserRemovalInformation.class).getEmail());
 
-                        usersList.add(new RemoverUserItem(R.drawable.ic_delete, uInfo.getNome()));
+                        usersList.add(new RemoverUserItem(R.drawable.ic_delete, uInfo.getNome(), uInfo.getEmail()));
                     }
                 }
 
