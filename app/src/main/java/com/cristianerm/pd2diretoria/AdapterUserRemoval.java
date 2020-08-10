@@ -61,22 +61,22 @@ public class AdapterUserRemoval extends RecyclerView.Adapter<AdapterUserRemoval.
             @Override
             public void onClick(View view) {
                 String name_user = currentItem.getText();
-                String email_user = "vicentealves@gmail.com";
-                OpenConfirmarDelete(name_user, view);
-                Log.d("Adapter User Removal", "On click of image view!! Nome: " + name_user);
+                String email_user = currentItem.getEmail();
+                OpenConfirmarDelete(name_user, email_user, view);
+                Log.d("Adapter User Removal", "On click of image view!! Nome: " + name_user + email_user);
             }
         });
     }
 
-    public void OpenConfirmarDelete(final String name_user, View v){
+    public void OpenConfirmarDelete(final String name_user, final String email_user, View v){
 
         new AlertDialog.Builder(v.getContext())
                 .setTitle("Comfirmação:")
                 .setMessage("Você tem certeza que deseja deletar " + name_user + "?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //GetUserInfo(name_user);
-                        //PutUserOnDeletedList();
+                        GetUserInfo(name_user);
+                        PutUserOnDeletedList(email_user);
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -142,6 +142,13 @@ public class AdapterUserRemoval extends RecyclerView.Adapter<AdapterUserRemoval.
             }
         });
 
+    }
+
+    private void PutUserOnDeletedList(String email_user){
+        myRefPutUserOnDeletedList = mFirebaseDatase.getReference().child("users_deletados");
+
+        String key = myRefPutUserOnDeletedList.push().getKey();
+        myRefPutUserOnDeletedList.child(key).child("email").setValue(email_user);
     }
 
     @Override
