@@ -109,7 +109,7 @@
                         android:id="@+id/usersIcon"
                         android:layout_width="@dimen/width_icon_menu"
                         android:layout_height="@dimen/width_icon_menu"
-                        app:srcCompat="@drawable/icon_user"
+                        app:srcCompat="@drawable/icon_users"
                         android:layout_gravity="center"/>
 
                     <TextView
