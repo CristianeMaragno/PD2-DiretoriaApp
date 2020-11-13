@@ -2,26 +2,26 @@ package com.cristianerm.pd2diretoria;
 
 public class RecadosInformation {
 
-    String mensagem_lida;
-    String user;
+    String date;
+    String textInfo;
 
     public RecadosInformation(){
 
     }
 
-    public String getMensagem_lida() {
-        return mensagem_lida;
+    public String getDate() {
+        return date;
     }
 
-    public void setMensagem_lida(String mensagem_lida) {
-        this.mensagem_lida = mensagem_lida;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getUser() {
-        return user;
+    public String getTextInfo() {
+        return textInfo;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setTextInfo(String textInfo) {
+        this.textInfo = textInfo;
     }
 }

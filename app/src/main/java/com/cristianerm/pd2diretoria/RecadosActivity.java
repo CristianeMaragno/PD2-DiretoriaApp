@@ -34,7 +34,7 @@ public class RecadosActivity extends AppCompatActivity {
     Toolbar toolbar_recados;
     EditText recados;
     Button button_enviar;
-    //ListView listVistos;
+    ListView listVistos;
     TextView error_mensagem;
 
     private static final String TAG = "Recados Activity";
@@ -58,7 +58,7 @@ public class RecadosActivity extends AppCompatActivity {
 
         recados = (EditText) findViewById(R.id.editTextRecados);
         button_enviar = (Button) findViewById(R.id.button_recados);
-        //listVistos = (ListView) findViewById(R.id.listRecados);
+        listVistos = (ListView) findViewById(R.id.listRecados);
         error_mensagem = (TextView) findViewById(R.id.textErrorRecados);
 
         mAuth = FirebaseAuth.getInstance();
@@ -117,18 +117,24 @@ public class RecadosActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    RecadosInformation rInfo = new RecadosInformation();
-                    rInfo.setMensagem_lida(ds.getValue(RecadosInformation.class).getMensagem_lida());
-                    rInfo.setUser(ds.getValue(RecadosInformation.class).getUser());
+                    for (DataSnapshot ds2 : ds.getChildren()) {
+                        String clubkey = ds.getKey();
+                        Log.d(TAG, "showData: " + clubkey);
 
-                    Log.d(TAG, "showData: Recado lido: " + rInfo.getMensagem_lida());
-                    Log.d(TAG, "showData: Aluno: " + rInfo.getUser());
+                        RecadosInformation rInfo = new RecadosInformation();
+                        rInfo.setDate(ds2.getValue(RecadosInformation.class).getDate());
+                        rInfo.setTextInfo(ds2.getValue(RecadosInformation.class).getTextInfo());
 
-                    array.add(rInfo.getUser() + "\n" +rInfo.getMensagem_lida());
+                        Log.d(TAG, "showData: " + rInfo.getDate());
+                        Log.d(TAG, "showData: " + rInfo.getTextInfo());
+
+                        array.add(clubkey + "\n" + rInfo.getDate() + " " + rInfo.getTextInfo());
+                    }
+
                 }
 
                 Collections.reverse(array);
-                //listVistos.setAdapter(adapter);
+                listVistos.setAdapter(adapter);
             }
 
             @Override
