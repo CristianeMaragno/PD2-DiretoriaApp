@@ -30,10 +30,10 @@ import java.util.Date;
 
 public class RecadosActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    //ImageButton voltar;
     EditText recados;
     Button button_enviar;
-    ListView listVistos;
+    //ListView listVistos;
     TextView error_mensagem;
 
     private static final String TAG = "Recados Activity";
@@ -49,10 +49,10 @@ public class RecadosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recados);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarRecados);
+        //voltar = (ImageButton) findViewById(R.id.buttonVoltarRecados);
         recados = (EditText) findViewById(R.id.editTextRecados);
         button_enviar = (Button) findViewById(R.id.button_recados);
-        listVistos = (ListView) findViewById(R.id.listRecados);
+        //listVistos = (ListView) findViewById(R.id.listRecados);
         error_mensagem = (TextView) findViewById(R.id.textErrorRecados);
 
         mAuth = FirebaseAuth.getInstance();
@@ -72,14 +72,14 @@ public class RecadosActivity extends AppCompatActivity {
             }
         };
 
-        voltar.setOnClickListener(new View.OnClickListener() {
+        /*voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;
                 i = new Intent(RecadosActivity.this, MenuActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
 
         button_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +121,7 @@ public class RecadosActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                listVistos.setAdapter(adapter);
+                //listVistos.setAdapter(adapter);
             }
 
             @Override
