@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import java.util.Date;
 
 public class RecadosActivity extends AppCompatActivity {
 
-    //ImageButton voltar;
+    Toolbar toolbar_recados;
     EditText recados;
     Button button_enviar;
     //ListView listVistos;
@@ -49,7 +50,12 @@ public class RecadosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recados);
 
-        //voltar = (ImageButton) findViewById(R.id.buttonVoltarRecados);
+        toolbar_recados = (Toolbar) findViewById(R.id.tool_bar_recados);
+        setSupportActionBar(toolbar_recados);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_recados.setTitle("");
+        toolbar_recados.setSubtitle("");
+
         recados = (EditText) findViewById(R.id.editTextRecados);
         button_enviar = (Button) findViewById(R.id.button_recados);
         //listVistos = (ListView) findViewById(R.id.listRecados);
@@ -59,6 +65,15 @@ public class RecadosActivity extends AppCompatActivity {
         mFirebaseDatase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatase.getReference().child("recados");
         myRefRec = mFirebaseDatase.getReference().child("recados_lidos");
+
+        toolbar_recados.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(RecadosActivity.this, MenuActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -72,14 +87,6 @@ public class RecadosActivity extends AppCompatActivity {
             }
         };
 
-        /*voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(RecadosActivity.this, MenuActivity.class);
-                startActivity(i);
-            }
-        });*/
 
         button_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
