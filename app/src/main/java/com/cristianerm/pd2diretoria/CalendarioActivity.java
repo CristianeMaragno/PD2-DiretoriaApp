@@ -35,14 +35,14 @@ import java.util.Collections;
 
 public class CalendarioActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    //ImageButton voltar;
     Spinner mes;
     EditText texto;
     Button enviar;
     ListView listView;
     Spinner mes2;
     TextView error_mensagem;
-    ProgressBar progressBar;
+    //ProgressBar progressBar;
 
     private static final String TAG = "Calendario Activity";
 
@@ -57,16 +57,16 @@ public class CalendarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarCalendario);
+        //voltar = (ImageButton) findViewById(R.id.buttonVoltarCalendario);
         mes = (Spinner) findViewById(R.id.spinner_Calendario_mes);
         texto = (EditText) findViewById(R.id.editTextCalendario);
         enviar = (Button) findViewById(R.id.button_calendario);
         mes2 = (Spinner) findViewById(R.id.spinner_Calendario_mes2);
         listView = (ListView) findViewById(R.id.listCalendar);
         error_mensagem = (TextView) findViewById(R.id.textErrorCalendario);
-        progressBar = (ProgressBar) findViewById(R.id.progressBarCalendario);
+        //progressBar = (ProgressBar) findViewById(R.id.progressBarCalendario);
 
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -84,14 +84,14 @@ public class CalendarioActivity extends AppCompatActivity {
             }
         };
 
-        voltar.setOnClickListener(new View.OnClickListener() {
+        /*voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;
                 i = new Intent(CalendarioActivity.this, MenuActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
 
         ///// Spinner mes do evento adapter
         ArrayAdapter<CharSequence> adapter_mes = ArrayAdapter.createFromResource(this,
@@ -112,7 +112,7 @@ public class CalendarioActivity extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
+                //progressBar.setVisibility(View.VISIBLE);
 
                 String evento = texto.getText().toString();
 
@@ -152,7 +152,7 @@ public class CalendarioActivity extends AppCompatActivity {
         String key = myRef.push().getKey();
         myRef.child(ref).child(key).child("evento").setValue(evento);
 
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
         texto.getText().clear();
         Toast.makeText(CalendarioActivity.this, "Upload de evento concluído", Toast.LENGTH_SHORT).show();
     }
