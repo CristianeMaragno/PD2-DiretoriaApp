@@ -94,7 +94,7 @@ public class UserRemovalActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String status_selecionado = status_users.getItemAtPosition(status_users.getSelectedItemPosition()).toString();
-                //recupera_users(status_selecionado);
+                recupera_users(status_selecionado);
             }
 
             @Override
