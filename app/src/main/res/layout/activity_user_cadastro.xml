@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,154 +7,148 @@
     android:background="@color/Amarelo"
     tools:context=".UserCadastroActivity">
 
-    <ImageButton
-        android:id="@+id/buttonVoltarUserCadastro"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/homeAsUpIndicator"
-        android:tint="@color/Vermelho"
-        android:background="@null"/>
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="CADASTRO DE USUÁRIO"
-        android:textColor="@color/Vermelho"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/nome_usuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nome do usuário"
-        app:layout_constraintBottom_toTopOf="@+id/nome_usuario_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/nome_usuario_cadastro" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tool_bar_cadastro_users"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <EditText
-        android:id="@+id/nome_usuario_cadastro"
-        android:layout_width="275dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/Vermelho"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/Vermelho"
-        android:textCursorDrawable="@null"
-        app:layout_constraintBottom_toTopOf="@+id/email_usuario_cadastro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
 
-    <TextView
-        android:id="@+id/email_usuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email do usuário"
-        app:layout_constraintBottom_toTopOf="@+id/email_usuario_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/email_usuario_cadastro" />
+            <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CADASTRAR USUÁRIOS"
+            android:textColor="@color/Vermelho"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp">
+
+            <TextView
+                android:id="@+id/nome_usuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome do usuário" />
+
+            <EditText
+                android:id="@+id/nome_usuario_cadastro"
+                android:layout_height="46dp"
+                android:layout_width="match_parent"
+                android:backgroundTint="@color/Vermelho"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/Vermelho"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="25dp"/>
+
+            <TextView
+                android:id="@+id/email_usuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email do usuário" />
 
 
-    <EditText
-        android:id="@+id/email_usuario_cadastro"
-        android:layout_width="275dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/Vermelho"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/Vermelho"
-        android:textCursorDrawable="@null"
-        app:layout_constraintBottom_toTopOf="@+id/senha_usuario_cadastro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/email_usuario_cadastro"
+                android:layout_height="46dp"
+                android:layout_width="match_parent"
+                android:backgroundTint="@color/Vermelho"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/Vermelho"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="25dp"/>
 
-    <TextView
-        android:id="@+id/senha_usuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Senha do usuário"
-        app:layout_constraintBottom_toTopOf="@+id/senha_usuario_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/senha_usuario_cadastro" />
+            <TextView
+                android:id="@+id/senha_usuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Senha do usuário"/>
 
-    <EditText
-        android:id="@+id/senha_usuario_cadastro"
-        android:layout_width="275dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/Vermelho"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textColor="@color/Vermelho"
-        android:textCursorDrawable="@null"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_status_cadastro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/senha_usuario_cadastro"
+                android:layout_height="46dp"
+                android:layout_width="match_parent"
+                android:backgroundTint="@color/Vermelho"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textColor="@color/Vermelho"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="25dp"/>
 
-    <TextView
-        android:id="@+id/text_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Status do usuário"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_status_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/spinner_status_cadastro" />
+            <TextView
+                android:id="@+id/text_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status do usuário"/>
 
-    <Spinner
-        android:id="@+id/spinner_status_cadastro"
-        android:layout_width="@dimen/width_spinner"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_turma_cadastro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <Spinner
+                android:id="@+id/spinner_status_cadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"/>
 
-    <TextView
-        android:id="@+id/text_turma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Turma do usuário"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_turma_cadastro"
-        app:layout_constraintStart_toStartOf="@+id/spinner_turma_cadastro" />
+            <TextView
+                android:id="@+id/text_turma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Turma do usuário" />
 
-    <Spinner
-        android:id="@+id/spinner_turma_cadastro"
-        android:layout_width="@dimen/width_spinner"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22"
-        app:layout_constraintVertical_bias="0.75" />
+            <Spinner
+                android:id="@+id/spinner_turma_cadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"/>
 
-    <Button
-        android:id="@+id/button_cadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_style"
-        android:text="Cadastrar"
-        android:textColor="@color/Amarelo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_turma_cadastro"
-        android:paddingRight="30dp"
-        android:paddingLeft="30dp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_cadastro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="Cadastrar"
+                android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/textErrorCadastroUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/Vermelho"
-        app:layout_constraintStart_toStartOf="@+id/senha_usuario_cadastro"
-        app:layout_constraintTop_toBottomOf="@+id/senha_usuario_cadastro" />
+            <TextView
+                android:id="@+id/textErrorCadastroUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/Vermelho"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
