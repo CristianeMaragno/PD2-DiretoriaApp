@@ -28,7 +28,7 @@ import java.util.Collections;
 
 public class UserRemovalActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    //ImageButton voltar;
     Spinner status_users;
     ArrayList<RemoverUserItem> usersList;
 
@@ -48,7 +48,7 @@ public class UserRemovalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_removal);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarUserRemoval);
+        //voltar = (ImageButton) findViewById(R.id.buttonVoltarUserRemoval);
         status_users = (Spinner) findViewById(R.id.spinner_status_removal);
         mRecyclerView = findViewById(R.id.recycler_view_remover_users);
         usersList = new ArrayList<>();
@@ -68,14 +68,14 @@ public class UserRemovalActivity extends AppCompatActivity {
             }
         };
 
-        voltar.setOnClickListener(new View.OnClickListener() {
+        /*voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;
                 i = new Intent(UserRemovalActivity.this, UsersActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
 
         ///// Spinner status dos users
         ArrayAdapter<CharSequence> adapter_status = ArrayAdapter.createFromResource(this,
@@ -88,7 +88,7 @@ public class UserRemovalActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String status_selecionado = status_users.getItemAtPosition(status_users.getSelectedItemPosition()).toString();
-                recupera_users(status_selecionado);
+                //recupera_users(status_selecionado);
             }
 
             @Override
