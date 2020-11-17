@@ -151,7 +151,7 @@ public class CalendarioActivity extends AppCompatActivity {
 
         String key = myRef.push().getKey();
         myRef.child(ref).child(key).child("evento").setValue(evento);
-        
+
         texto.getText().clear();
         Toast.makeText(CalendarioActivity.this, "Upload de evento concluído", Toast.LENGTH_SHORT).show();
     }

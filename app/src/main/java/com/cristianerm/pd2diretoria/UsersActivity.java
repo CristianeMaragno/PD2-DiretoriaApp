@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class UsersActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    //ImageButton voltar;
     Button cadastrar_user;
     Button remover_user;
 
@@ -30,7 +30,7 @@ public class UsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarUser);
+        //voltar = (ImageButton) findViewById(R.id.buttonVoltarUser);
         cadastrar_user = (Button) findViewById(R.id.button_cadastrar_usuario);
         remover_user = (Button) findViewById(R.id.button_remover_usuario);
 
@@ -50,14 +50,14 @@ public class UsersActivity extends AppCompatActivity {
             }
         };
 
-        voltar.setOnClickListener(new View.OnClickListener() {
+        /*voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;
                 i = new Intent(UsersActivity.this, MenuActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
 
         cadastrar_user.setOnClickListener(new View.OnClickListener() {
             @Override
