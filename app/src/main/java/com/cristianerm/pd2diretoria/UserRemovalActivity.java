@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +29,7 @@ import java.util.Collections;
 
 public class UserRemovalActivity extends AppCompatActivity {
 
-    //ImageButton voltar;
+    Toolbar toolbar_remove_user;
     Spinner status_users;
     ArrayList<RemoverUserItem> usersList;
 
@@ -48,13 +49,27 @@ public class UserRemovalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_removal);
 
-        //voltar = (ImageButton) findViewById(R.id.buttonVoltarUserRemoval);
+        toolbar_remove_user = (Toolbar) findViewById(R.id.tool_bar_remove_user);
+        setSupportActionBar(toolbar_remove_user);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_remove_user.setTitle("");
+        toolbar_remove_user.setSubtitle("");
+
         status_users = (Spinner) findViewById(R.id.spinner_status_removal);
         mRecyclerView = findViewById(R.id.recycler_view_remover_users);
         usersList = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
+
+        toolbar_remove_user.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(UserRemovalActivity.this, UsersActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -67,15 +82,6 @@ public class UserRemovalActivity extends AppCompatActivity {
                 }
             }
         };
-
-        /*voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(UserRemovalActivity.this, UsersActivity.class);
-                startActivity(i);
-            }
-        });*/
 
         ///// Spinner status dos users
         ArrayAdapter<CharSequence> adapter_status = ArrayAdapter.createFromResource(this,
