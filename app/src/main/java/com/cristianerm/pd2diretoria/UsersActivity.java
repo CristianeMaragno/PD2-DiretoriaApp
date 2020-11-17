@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class UsersActivity extends AppCompatActivity {
 
-    //ImageButton voltar;
+    Toolbar toolbar_users;
     Button cadastrar_user;
     Button remover_user;
 
@@ -30,13 +31,27 @@ public class UsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-        //voltar = (ImageButton) findViewById(R.id.buttonVoltarUser);
+        toolbar_users = (Toolbar) findViewById(R.id.tool_bar_users);
+        setSupportActionBar(toolbar_users);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_users.setTitle("");
+        toolbar_users.setSubtitle("");
+
         cadastrar_user = (Button) findViewById(R.id.button_cadastrar_usuario);
         remover_user = (Button) findViewById(R.id.button_remover_usuario);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
+
+        toolbar_users.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(UsersActivity.this, MenuActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -49,15 +64,6 @@ public class UsersActivity extends AppCompatActivity {
                 }
             }
         };
-
-        /*voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(UsersActivity.this, MenuActivity.class);
-                startActivity(i);
-            }
-        });*/
 
         cadastrar_user.setOnClickListener(new View.OnClickListener() {
             @Override
