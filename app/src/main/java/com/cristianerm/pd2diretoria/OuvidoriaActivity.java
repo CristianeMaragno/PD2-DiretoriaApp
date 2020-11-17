@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,9 +28,8 @@ import java.util.Collections;
 
 public class OuvidoriaActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    Toolbar toolbar_ouvidoria;
     ListView listOuvidoria;
-    ProgressBar progressBar;
 
     private static final String TAG = "Ouvidoria Activity";
 
@@ -43,13 +43,26 @@ public class OuvidoriaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ouvidoria);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarOuvidoria);
+        toolbar_ouvidoria = (Toolbar) findViewById(R.id.tool_bar_ouvidoria);
+        setSupportActionBar(toolbar_ouvidoria);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_ouvidoria.setTitle("");
+        toolbar_ouvidoria.setSubtitle("");
+
         listOuvidoria = (ListView) findViewById(R.id.listOuvidoria);
-        progressBar = (ProgressBar) findViewById(R.id.progressBarOuvidoria);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatase.getReference().child("ouvidoria");
+
+        toolbar_ouvidoria.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(OuvidoriaActivity.this, MenuActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -62,15 +75,6 @@ public class OuvidoriaActivity extends AppCompatActivity {
                 }
             }
         };
-
-        voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(OuvidoriaActivity.this, MenuActivity.class);
-                startActivity(i);
-            }
-        });
 
         myRef.addValueEventListener(new ValueEventListener() {
 
@@ -97,7 +101,6 @@ public class OuvidoriaActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                progressBar.setVisibility(View.GONE);
                 listOuvidoria.setAdapter(adapter);
             }
 
