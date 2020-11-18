@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/Amarelo2"
-    app:cardCornerRadius="4dp"
-    android:id="@+id/cardViewAndroid">
+    android:layout_margin="8dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/Amarelo2">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp">
+        android:layout_margin="15dp">
 
         <TextView
             android:id="@+id/textViewDiarioItem"
@@ -36,4 +38,5 @@
             android:layout_below="@+id/textViewDiarioItem"
             android:layout_marginTop="36dp" />
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+
+</com.google.android.material.card.MaterialCardView>
