@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,9 +27,8 @@ import java.util.Collections;
 
 public class ReciboAnualActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    Toolbar toolbar_recibo_anual;
     ListView solicitacoesReciboAnual;
-    ProgressBar progressBar;
 
     private static final String TAG = "Recibo Anual Activity";
 
@@ -42,13 +42,26 @@ public class ReciboAnualActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recibo_anual);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarReciboAnual);
+        toolbar_recibo_anual = (Toolbar) findViewById(R.id.tool_bar_recibo_anual);
+        setSupportActionBar(toolbar_recibo_anual);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_recibo_anual.setTitle("");
+        toolbar_recibo_anual.setSubtitle("");
+
         solicitacoesReciboAnual = (ListView) findViewById(R.id.listReciboAnual);
-        progressBar = (ProgressBar) findViewById(R.id.progressBarReciboAnual);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatase.getReference().child("sol_recibo_anual");
+
+        toolbar_recibo_anual.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(ReciboAnualActivity.this, FinanceiroActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -61,15 +74,6 @@ public class ReciboAnualActivity extends AppCompatActivity {
                 }
             }
         };
-
-        voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(ReciboAnualActivity.this, FinanceiroActivity.class);
-                startActivity(i);
-            }
-        });
 
         myRef.addValueEventListener(new ValueEventListener() {
 
@@ -92,7 +96,6 @@ public class ReciboAnualActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                progressBar.setVisibility(View.GONE);
                 solicitacoesReciboAnual.setAdapter(adapter);
             }
 
