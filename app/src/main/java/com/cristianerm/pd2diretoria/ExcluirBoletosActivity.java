@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +28,7 @@ import java.util.Calendar;
 
 public class ExcluirBoletosActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    Toolbar toolbar_excluir_boletos;
     Spinner alunos;
     ArrayList<ExcluirBoletosItem> boletosList;
 
@@ -49,7 +50,12 @@ public class ExcluirBoletosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_excluir_boletos);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarExcluirBoletos);
+        toolbar_excluir_boletos = (Toolbar) findViewById(R.id.tool_bar_excluir_boletos);
+        setSupportActionBar(toolbar_excluir_boletos);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_excluir_boletos.setTitle("");
+        toolbar_excluir_boletos.setSubtitle("");
+
         alunos = (Spinner) findViewById(R.id.spinnerAlunoExcluirBoletos);
         mRecyclerView = findViewById(R.id.recycler_view_excluir_boletos);
         boletosList = new ArrayList<>();
@@ -57,6 +63,15 @@ public class ExcluirBoletosActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference().child("alunos");
+
+        toolbar_excluir_boletos.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(ExcluirBoletosActivity.this, FinanceiroActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -69,15 +84,6 @@ public class ExcluirBoletosActivity extends AppCompatActivity {
                 }
             }
         };
-
-        voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(ExcluirBoletosActivity.this, FinanceiroActivity.class);
-                startActivity(i);
-            }
-        });
 
         final ArrayList<String> alunosEscola = new ArrayList<String>();
 
