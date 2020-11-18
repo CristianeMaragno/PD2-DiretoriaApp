@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,9 +27,8 @@ import java.util.Collections;
 
 public class SaidaActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    Toolbar toolbar_saida;
     ListView listSaida;
-    ProgressBar progressBar;
 
     private static final String TAG = "Saida Activity";
 
@@ -42,13 +42,26 @@ public class SaidaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saida);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarSaida);
+        toolbar_saida = (Toolbar) findViewById(R.id.tool_bar_saida);
+        setSupportActionBar(toolbar_saida);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_saida.setTitle("");
+        toolbar_saida.setSubtitle("");
+
         listSaida = (ListView) findViewById(R.id.listSaida);
-        progressBar = (ProgressBar) findViewById(R.id.progressBarSaida);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatase.getReference().child("solicitar_saida");
+
+        toolbar_saida.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(SaidaActivity.this, MenuActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -61,15 +74,6 @@ public class SaidaActivity extends AppCompatActivity {
                 }
             }
         };
-
-        voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(SaidaActivity.this, MenuActivity.class);
-                startActivity(i);
-            }
-        });
 
         myRef.addValueEventListener(new ValueEventListener() {
 
@@ -91,7 +95,6 @@ public class SaidaActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                progressBar.setVisibility(View.GONE);
                 listSaida.setAdapter(adapter);
             }
 
