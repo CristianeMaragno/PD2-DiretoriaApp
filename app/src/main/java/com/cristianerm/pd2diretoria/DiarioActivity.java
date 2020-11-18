@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 public class DiarioActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    Toolbar toolbar_diario;
     Spinner turma;
     ArrayList<DiarioItem> diarioList;
 
@@ -46,13 +47,27 @@ public class DiarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diario);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarDiario);
+        toolbar_diario = (Toolbar) findViewById(R.id.tool_bar_diario);
+        setSupportActionBar(toolbar_diario);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_diario.setTitle("");
+        toolbar_diario.setSubtitle("");
+
         turma = (Spinner) findViewById(R.id.spinner_turma_diario);
         mRecyclerView = findViewById(R.id.recycler_view_diario);
         diarioList = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
+
+        toolbar_diario.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(DiarioActivity.this, MenuActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -65,15 +80,6 @@ public class DiarioActivity extends AppCompatActivity {
                 }
             }
         };
-
-        voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(DiarioActivity.this, MenuActivity.class);
-                startActivity(i);
-            }
-        });
 
         ///// Spinner turma
         ArrayAdapter<CharSequence> adapter_turma = ArrayAdapter.createFromResource(this,
