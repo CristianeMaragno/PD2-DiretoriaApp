@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -34,7 +35,7 @@ import java.util.Calendar;
 
 public class UploadBoletosActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    Toolbar toolbar_upload_boletos;
     Spinner alunos;
     Spinner mes;
     Button uploadBoleto;
@@ -60,7 +61,12 @@ public class UploadBoletosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_boletos);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarUploadBoletos);
+        toolbar_upload_boletos = (Toolbar) findViewById(R.id.tool_bar_upload_boletos);
+        setSupportActionBar(toolbar_upload_boletos);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_upload_boletos.setTitle("");
+        toolbar_upload_boletos.setSubtitle("");
+
         alunos = (Spinner) findViewById(R.id.spinner_upload_boleto_aluno);
         mes = (Spinner) findViewById(R.id.spinner_upload_boleto_mes);
         uploadBoleto = (Button) findViewById(R.id.button_upload_boleto_escolher_arquivo);
@@ -73,6 +79,15 @@ public class UploadBoletosActivity extends AppCompatActivity {
         myRef = mFirebaseDatabase.getReference().child("alunos");
         mStorageReference = FirebaseStorage.getInstance().getReference();
 
+        toolbar_upload_boletos.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(UploadBoletosActivity.this, FinanceiroActivity.class);
+                startActivity(i);
+            }
+        });
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -84,15 +99,6 @@ public class UploadBoletosActivity extends AppCompatActivity {
                 }
             }
         };
-
-        voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(UploadBoletosActivity.this, FinanceiroActivity.class);
-                startActivity(i);
-            }
-        });
 
         ///// Spinner mes
         ArrayAdapter<CharSequence> adapter_mes = ArrayAdapter.createFromResource(this,
