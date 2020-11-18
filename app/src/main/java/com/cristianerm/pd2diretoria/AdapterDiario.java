@@ -59,12 +59,17 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
         DiarioItem currentItem = mDiarioList.get(position);
         holder.mImageView.setImageResource(currentItem.getImageResource());
         holder.mTextView.setText(currentItem.getText());
-        Picasso.get()
-                .load(currentItem.getImageUrl())
-                .into(holder.mImageViewImage);
+
+        if(currentItem.getImageUrl().equals("No image")){
+            holder.mImageViewImage.setVisibility(View.GONE);
+        }else{
+            Picasso.get()
+                    .load(currentItem.getImageUrl())
+                    .into(holder.mImageViewImage);
+        }
 
         final String turmaSelecionada = currentItem.getmTurmaSelecionada();
-
+        
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
