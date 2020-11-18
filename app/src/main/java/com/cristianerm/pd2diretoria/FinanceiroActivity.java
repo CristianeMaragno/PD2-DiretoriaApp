@@ -2,6 +2,7 @@ package com.cristianerm.pd2diretoria;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class FinanceiroActivity extends AppCompatActivity {
 
-    ImageButton voltar;
+    Toolbar toolbar_financeiro;
     Button uploadBoletos, excluirBoletos, solicitacoesReciboAnual;
 
     private FirebaseAuth mAuth;
@@ -26,12 +27,26 @@ public class FinanceiroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_financeiro);
 
-        voltar = (ImageButton) findViewById(R.id.buttonVoltarFinanceiro);
+        toolbar_financeiro = (Toolbar) findViewById(R.id.tool_bar_financeiro);
+        setSupportActionBar(toolbar_financeiro);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar_financeiro.setTitle("");
+        toolbar_financeiro.setSubtitle("");
+
         uploadBoletos = (Button) findViewById(R.id.button_upload_boleto);
         excluirBoletos = (Button) findViewById(R.id.button_excluir_boleto);
         solicitacoesReciboAnual = (Button) findViewById(R.id.button_solicitar_recibo_anual);
 
         mAuth = FirebaseAuth.getInstance();
+
+        toolbar_financeiro.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i;
+                i = new Intent(FinanceiroActivity.this, MenuActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -44,15 +59,6 @@ public class FinanceiroActivity extends AppCompatActivity {
                 }
             }
         };
-
-        voltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i;
-                i = new Intent(FinanceiroActivity.this, MenuActivity.class);
-                startActivity(i);
-            }
-        });
 
         uploadBoletos.setOnClickListener(new View.OnClickListener() {
             @Override

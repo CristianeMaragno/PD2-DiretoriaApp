@@ -69,7 +69,7 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
         }
 
         final String turmaSelecionada = currentItem.getmTurmaSelecionada();
-        
+
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
