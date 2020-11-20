@@ -33,7 +33,6 @@
             android:paddingTop="16dp">
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RECADOS"
@@ -53,7 +52,7 @@
             android:layout_marginTop="50dp">
 
             <EditText
-                android:id="@+id/editTextRecados"
+                android:id="@+id/edit_text_recados"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@drawable/edit_text_background"
@@ -68,7 +67,7 @@
                 android:textCursorDrawable="@null"/>
 
             <TextView
-                android:id="@+id/textErrorRecados"
+                android:id="@+id/text_error_recados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/Vermelho"/>
@@ -89,7 +88,7 @@
                 android:layout_marginTop="10dp"/>
 
             <ListView
-                android:id="@+id/listRecados"
+                android:id="@+id/list_view_recados"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@color/Amarelo"

@@ -35,7 +35,6 @@
             android:paddingTop="16dp">
 
             <TextView
-            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CADASTRAR USUÁRIOS"
@@ -57,13 +56,12 @@
             android:layout_marginLeft="25dp">
 
             <TextView
-                android:id="@+id/nome_usuario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome do usuário" />
 
             <EditText
-                android:id="@+id/nome_usuario_cadastro"
+                android:id="@+id/edit_view_nome_cadastro"
                 android:layout_height="46dp"
                 android:layout_width="match_parent"
                 android:backgroundTint="@color/Vermelho"
@@ -74,14 +72,13 @@
                 android:layout_marginBottom="25dp"/>
 
             <TextView
-                android:id="@+id/email_usuario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email do usuário" />
 
 
             <EditText
-                android:id="@+id/email_usuario_cadastro"
+                android:id="@+id/edit_view_email_cadastro"
                 android:layout_height="46dp"
                 android:layout_width="match_parent"
                 android:backgroundTint="@color/Vermelho"
@@ -92,13 +89,12 @@
                 android:layout_marginBottom="25dp"/>
 
             <TextView
-                android:id="@+id/senha_usuario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Senha do usuário"/>
 
             <EditText
-                android:id="@+id/senha_usuario_cadastro"
+                android:id="@+id/edit_view_senha_cadastro"
                 android:layout_height="46dp"
                 android:layout_width="match_parent"
                 android:backgroundTint="@color/Vermelho"
@@ -109,7 +105,6 @@
                 android:layout_marginBottom="25dp"/>
 
             <TextView
-                android:id="@+id/text_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Status do usuário"/>
@@ -121,7 +116,6 @@
                 android:layout_marginBottom="25dp"/>
 
             <TextView
-                android:id="@+id/text_turma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Turma do usuário" />
@@ -142,7 +136,7 @@
                 android:layout_gravity="center"/>
 
             <TextView
-                android:id="@+id/textErrorCadastroUser"
+                android:id="@+id/text_view_error_cadastro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/Vermelho"/>

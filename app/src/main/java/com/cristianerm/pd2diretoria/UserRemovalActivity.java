@@ -30,8 +30,8 @@ import java.util.Collections;
 public class UserRemovalActivity extends AppCompatActivity {
 
     Toolbar toolbar_remove_user;
-    Spinner status_users;
-    ArrayList<RemoverUserItem> usersList;
+    Spinner spinner_status_users;
+    ArrayList<RemoverUserItem> array_list_users;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -55,9 +55,9 @@ public class UserRemovalActivity extends AppCompatActivity {
         toolbar_remove_user.setTitle("");
         toolbar_remove_user.setSubtitle("");
 
-        status_users = (Spinner) findViewById(R.id.spinner_status_removal);
+        spinner_status_users = (Spinner) findViewById(R.id.spinner_status_removal);
         mRecyclerView = findViewById(R.id.recycler_view_remover_users);
-        usersList = new ArrayList<>();
+        array_list_users = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -87,13 +87,13 @@ public class UserRemovalActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter_status = ArrayAdapter.createFromResource(this,
                 R.array.status, android.R.layout.simple_spinner_item);
         adapter_status.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        status_users.setAdapter(adapter_status);
+        spinner_status_users.setAdapter(adapter_status);
         ////
 
-        status_users.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_status_users.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String status_selecionado = status_users.getItemAtPosition(status_users.getSelectedItemPosition()).toString();
+                String status_selecionado = spinner_status_users.getItemAtPosition(spinner_status_users.getSelectedItemPosition()).toString();
                 recupera_users(status_selecionado);
             }
 
@@ -107,7 +107,7 @@ public class UserRemovalActivity extends AppCompatActivity {
     }
 
     public void recupera_users(String status_selecionado){
-        usersList.clear();
+        array_list_users.clear();
 
         if(status_selecionado.equals("Aluno(a)")){
             myRef = mFirebaseDatase.getReference().child("alunos");
@@ -122,7 +122,7 @@ public class UserRemovalActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                usersList.clear();
+                array_list_users.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     for(DataSnapshot ds2 : ds.getChildren()){
@@ -130,13 +130,13 @@ public class UserRemovalActivity extends AppCompatActivity {
                         uInfo.setNome(ds2.getValue(UserRemovalInformation.class).getNome());
                         uInfo.setEmail(ds2.getValue(UserRemovalInformation.class).getEmail());
 
-                        usersList.add(new RemoverUserItem(R.drawable.ic_delete, uInfo.getNome(), uInfo.getEmail()));
+                        array_list_users.add(new RemoverUserItem(R.drawable.ic_delete, uInfo.getNome(), uInfo.getEmail()));
                     }
                 }
 
                 mRecyclerView.setHasFixedSize(true);
                 mLayoutManager = new LinearLayoutManager(UserRemovalActivity.this);
-                mAdapter = new AdapterUserRemoval(usersList);
+                mAdapter = new AdapterUserRemoval(array_list_users);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setAdapter(mAdapter);
 

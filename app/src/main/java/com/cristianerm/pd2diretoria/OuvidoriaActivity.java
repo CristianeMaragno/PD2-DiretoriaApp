@@ -29,7 +29,7 @@ import java.util.Collections;
 public class OuvidoriaActivity extends AppCompatActivity {
 
     Toolbar toolbar_ouvidoria;
-    ListView listOuvidoria;
+    ListView list_view_ouvidoria;
 
     private static final String TAG = "Ouvidoria Activity";
 
@@ -49,7 +49,7 @@ public class OuvidoriaActivity extends AppCompatActivity {
         toolbar_ouvidoria.setTitle("");
         toolbar_ouvidoria.setSubtitle("");
 
-        listOuvidoria = (ListView) findViewById(R.id.listOuvidoria);
+        list_view_ouvidoria = (ListView) findViewById(R.id.list_view_ouvidoria);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -101,7 +101,7 @@ public class OuvidoriaActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                listOuvidoria.setAdapter(adapter);
+                list_view_ouvidoria.setAdapter(adapter);
             }
 
             @Override

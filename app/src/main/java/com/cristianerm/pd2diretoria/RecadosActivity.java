@@ -32,10 +32,10 @@ import java.util.Date;
 public class RecadosActivity extends AppCompatActivity {
 
     Toolbar toolbar_recados;
-    EditText recados;
+    EditText edit_text_recados;
     Button button_enviar;
-    ListView listVistos;
-    TextView error_mensagem;
+    ListView list_view_vistos;
+    TextView text_view_error_mensagem;
 
     private static final String TAG = "Recados Activity";
 
@@ -56,10 +56,10 @@ public class RecadosActivity extends AppCompatActivity {
         toolbar_recados.setTitle("");
         toolbar_recados.setSubtitle("");
 
-        recados = (EditText) findViewById(R.id.editTextRecados);
+        edit_text_recados = (EditText) findViewById(R.id.edit_text_recados);
         button_enviar = (Button) findViewById(R.id.button_recados);
-        listVistos = (ListView) findViewById(R.id.listRecados);
-        error_mensagem = (TextView) findViewById(R.id.textErrorRecados);
+        list_view_vistos = (ListView) findViewById(R.id.list_view_recados);
+        text_view_error_mensagem = (TextView) findViewById(R.id.text_error_recados);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -91,17 +91,17 @@ public class RecadosActivity extends AppCompatActivity {
         button_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String recado = recados.getText().toString();
+                String recado = edit_text_recados.getText().toString();
 
                 Date currentTime = Calendar.getInstance().getTime();
                 String data_atual = currentTime.toString();
                 String hora_e_data = "Hora: "+data_atual.substring(11,19) + " Data: " + data_atual.substring(4,10);
 
                 if(!recado.equals("")) {
-                    error_mensagem.setText("");
+                    text_view_error_mensagem.setText("");
                     Upload_recado(recado, hora_e_data);
                 }else{
-                    error_mensagem.setText("O campo de texto está vazio");
+                    text_view_error_mensagem.setText("O campo de texto está vazio");
                 }
             }
         });
@@ -134,7 +134,7 @@ public class RecadosActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                listVistos.setAdapter(adapter);
+                list_view_vistos.setAdapter(adapter);
             }
 
             @Override
@@ -150,7 +150,7 @@ public class RecadosActivity extends AppCompatActivity {
         myRef.child(key).child("mensagem").setValue(recado);
         myRef.child(key).child("data").setValue(data);
 
-        recados.getText().clear();
+        edit_text_recados.getText().clear();
 
         Toast.makeText(RecadosActivity.this, "Upload do recado concluído", Toast.LENGTH_SHORT).show();
     }

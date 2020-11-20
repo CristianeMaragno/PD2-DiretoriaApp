@@ -37,8 +37,8 @@ public class AdapterUserRemoval extends RecyclerView.Adapter<AdapterUserRemoval.
 
         public AdapterUserRemovalViewHolder(View itemView) {
             super(itemView);
-            mTextView = itemView.findViewById(R.id.textViewUserRegistrado);
-            mImageView = itemView.findViewById(R.id.imageViewDeleteUser);
+            mTextView = itemView.findViewById(R.id.text_view_user_registrado);
+            mImageView = itemView.findViewById(R.id.image_view_delete_user);
         }
 
     }

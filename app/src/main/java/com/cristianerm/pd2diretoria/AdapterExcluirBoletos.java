@@ -40,8 +40,8 @@ public class AdapterExcluirBoletos extends RecyclerView.Adapter<AdapterExcluirBo
 
         public AdapterExcluirBoletosViewHolder(View itemView) {
             super(itemView);
-            mTextView = itemView.findViewById(R.id.textViewExcluirBoletosItem);
-            mImageView = itemView.findViewById(R.id.imageViewExcluirBoletosItem);
+            mTextView = itemView.findViewById(R.id.text_view_excluir_boletos_item);
+            mImageView = itemView.findViewById(R.id.image_view_excluir_boletos_item);
         }
 
     }

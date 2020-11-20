@@ -36,12 +36,10 @@ import java.util.Calendar;
 public class UploadBoletosActivity extends AppCompatActivity {
 
     Toolbar toolbar_upload_boletos;
-    Spinner alunos;
-    Spinner mes;
-    Button uploadBoleto;
-    TextView nomeBoleto;
-    Button enviar;
-    TextView errorMessage;
+    Spinner spinner_alunos;
+    Spinner spinner_mes;
+    Button button_escolher_boleto, button_enviar;
+    TextView text_view_nome_boleto, text_view_error_message;
 
     private static final String TAG = "Upload Boletos Activity";
     public static final String STORAGE_PATH_UPLOADS = "Boletos/";
@@ -67,12 +65,12 @@ public class UploadBoletosActivity extends AppCompatActivity {
         toolbar_upload_boletos.setTitle("");
         toolbar_upload_boletos.setSubtitle("");
 
-        alunos = (Spinner) findViewById(R.id.spinner_upload_boleto_aluno);
-        mes = (Spinner) findViewById(R.id.spinner_upload_boleto_mes);
-        uploadBoleto = (Button) findViewById(R.id.button_upload_boleto_escolher_arquivo);
-        nomeBoleto = (TextView) findViewById(R.id.textView_upload_boleto_nome);
-        enviar = (Button) findViewById(R.id.button_upload_boleto_enviar);
-        errorMessage = (TextView) findViewById(R.id.textView_upload_boletos_error);
+        spinner_alunos = (Spinner) findViewById(R.id.spinner_upload_boleto_aluno);
+        spinner_mes = (Spinner) findViewById(R.id.spinner_upload_boleto_mes);
+        button_escolher_boleto = (Button) findViewById(R.id.button_upload_boleto_escolher_arquivo);
+        button_enviar = (Button) findViewById(R.id.button_upload_boleto_enviar);
+        text_view_nome_boleto = (TextView) findViewById(R.id.text_view_upload_boleto_nome);
+        text_view_error_message = (TextView) findViewById(R.id.text_view_upload_boletos_error);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -105,7 +103,7 @@ public class UploadBoletosActivity extends AppCompatActivity {
                 R.array.meses, android.R.layout.simple_spinner_item);
         adapter_mes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mes.setAdapter(adapter_mes);
+        spinner_mes.setAdapter(adapter_mes);
         ////////
 
         final ArrayList<String> alunosEscola = new ArrayList<String>();
@@ -127,34 +125,34 @@ public class UploadBoletosActivity extends AppCompatActivity {
                 ArrayAdapter<String> adapter_alunos = new ArrayAdapter<String>(UploadBoletosActivity.this,  android.R.layout.simple_spinner_dropdown_item, alunosEscola);
                 adapter_alunos.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
-                alunos.setAdapter(adapter_alunos);
+                spinner_alunos.setAdapter(adapter_alunos);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
-        uploadBoleto.setOnClickListener(new View.OnClickListener() {
+        button_escolher_boleto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SelecionaBoleto();
             }
         });
 
-        enviar.setOnClickListener(new View.OnClickListener() {
+        button_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String aluno_selecionado = alunos.getItemAtPosition(alunos.getSelectedItemPosition()).toString();
-                final String mes_selecionado = mes.getItemAtPosition(mes.getSelectedItemPosition()).toString();
+                String aluno_selecionado = spinner_alunos.getItemAtPosition(spinner_alunos.getSelectedItemPosition()).toString();
+                final String mes_selecionado = spinner_mes.getItemAtPosition(spinner_mes.getSelectedItemPosition()).toString();
 
                 if(uriData != null){
                     //Adicionar informações do boleto no database
                     InserirBoletoNoDatabase(aluno_selecionado, mes_selecionado);
 
                     //Adicionar boleto no Firebase Storage
-                    uploadFile(aluno_selecionado, mes_selecionado);
+                    UploadFile(aluno_selecionado, mes_selecionado);
                 }else{
-                    errorMessage.setText("Selecione um arquivo");
+                    text_view_error_message.setText("Selecione um arquivo");
                 }
             }
         });
@@ -175,14 +173,14 @@ public class UploadBoletosActivity extends AppCompatActivity {
             //if a file is selected
             if (data.getData() != null) {
                 uriData = data.getData();
-                nomeBoleto.setText("Arquivo Selecionado");
+                text_view_nome_boleto.setText("Arquivo Selecionado");
             }else{
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void uploadFile(String aluno_selecionado, String mes_selecionado) {
+    private void UploadFile(String aluno_selecionado, String mes_selecionado) {
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
         final String ano = String.valueOf(year);
@@ -194,7 +192,7 @@ public class UploadBoletosActivity extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        errorMessage.setText("File Uploaded Successfully");
+                        text_view_error_message.setText("File Uploaded Successfully");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -208,7 +206,7 @@ public class UploadBoletosActivity extends AppCompatActivity {
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                         double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                        errorMessage.setText((int) progress + "% Uploading...");
+                        text_view_error_message.setText((int) progress + "% Uploading...");
                     }
                 });
     }

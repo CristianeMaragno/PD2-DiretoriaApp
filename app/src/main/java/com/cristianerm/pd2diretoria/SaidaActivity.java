@@ -28,7 +28,7 @@ import java.util.Collections;
 public class SaidaActivity extends AppCompatActivity {
 
     Toolbar toolbar_saida;
-    ListView listSaida;
+    ListView list_view_saida;
 
     private static final String TAG = "Saida Activity";
 
@@ -48,7 +48,7 @@ public class SaidaActivity extends AppCompatActivity {
         toolbar_saida.setTitle("");
         toolbar_saida.setSubtitle("");
 
-        listSaida = (ListView) findViewById(R.id.listSaida);
+        list_view_saida = (ListView) findViewById(R.id.list_view_saida);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -95,7 +95,7 @@ public class SaidaActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                listSaida.setAdapter(adapter);
+                list_view_saida.setAdapter(adapter);
             }
 
             @Override

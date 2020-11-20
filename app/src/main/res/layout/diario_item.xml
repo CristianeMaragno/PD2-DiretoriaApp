@@ -16,7 +16,7 @@
         android:layout_margin="15dp">
 
         <TextView
-            android:id="@+id/textViewDiarioItem"
+            android:id="@+id/text_view_diario_item"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -24,7 +24,7 @@
             android:textColor="@android:color/black" />
 
         <ImageView
-            android:id="@+id/imageViewDiarioItem"
+            android:id="@+id/image_view_diario_item"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
@@ -35,7 +35,7 @@
             android:id="@+id/image_view_image_diario_item"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_below="@+id/textViewDiarioItem"
+            android:layout_below="@+id/text_view_diario_item"
             android:layout_marginTop="36dp" />
     </RelativeLayout>
 

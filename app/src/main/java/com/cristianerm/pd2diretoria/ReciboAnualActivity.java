@@ -28,7 +28,7 @@ import java.util.Collections;
 public class ReciboAnualActivity extends AppCompatActivity {
 
     Toolbar toolbar_recibo_anual;
-    ListView solicitacoesReciboAnual;
+    ListView list_view_solicitacoes_recibo_anual;
 
     private static final String TAG = "Recibo Anual Activity";
 
@@ -48,7 +48,7 @@ public class ReciboAnualActivity extends AppCompatActivity {
         toolbar_recibo_anual.setTitle("");
         toolbar_recibo_anual.setSubtitle("");
 
-        solicitacoesReciboAnual = (ListView) findViewById(R.id.listReciboAnual);
+        list_view_solicitacoes_recibo_anual = (ListView) findViewById(R.id.list_view_recibo_anual);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -96,7 +96,7 @@ public class ReciboAnualActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                solicitacoesReciboAnual.setAdapter(adapter);
+                list_view_solicitacoes_recibo_anual.setAdapter(adapter);
             }
 
             @Override

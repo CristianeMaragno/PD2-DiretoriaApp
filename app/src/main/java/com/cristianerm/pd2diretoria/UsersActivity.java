@@ -19,8 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class UsersActivity extends AppCompatActivity {
 
     Toolbar toolbar_users;
-    Button cadastrar_user;
-    Button remover_user;
+    Button button_cadastrar_user, button_remover_user;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -37,8 +36,8 @@ public class UsersActivity extends AppCompatActivity {
         toolbar_users.setTitle("");
         toolbar_users.setSubtitle("");
 
-        cadastrar_user = (Button) findViewById(R.id.button_cadastrar_usuario);
-        remover_user = (Button) findViewById(R.id.button_remover_usuario);
+        button_cadastrar_user = (Button) findViewById(R.id.button_cadastrar_usuario);
+        button_remover_user = (Button) findViewById(R.id.button_remover_usuario);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -65,7 +64,7 @@ public class UsersActivity extends AppCompatActivity {
             }
         };
 
-        cadastrar_user.setOnClickListener(new View.OnClickListener() {
+        button_cadastrar_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;
@@ -74,7 +73,7 @@ public class UsersActivity extends AppCompatActivity {
             }
         });
 
-        remover_user.setOnClickListener(new View.OnClickListener() {
+        button_remover_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;

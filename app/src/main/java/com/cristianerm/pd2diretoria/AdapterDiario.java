@@ -36,8 +36,8 @@ public class AdapterDiario extends RecyclerView.Adapter<AdapterDiario.AdapterDia
 
         public AdapterDiarioViewHolder(View itemView) {
             super(itemView);
-            mTextView = itemView.findViewById(R.id.textViewDiarioItem);
-            mImageView = itemView.findViewById(R.id.imageViewDiarioItem);
+            mTextView = itemView.findViewById(R.id.text_view_diario_item);
+            mImageView = itemView.findViewById(R.id.image_view_diario_item);
             mImageViewImage = itemView.findViewById(R.id.image_view_image_diario_item);
         }
 

@@ -33,7 +33,6 @@
             android:paddingTop="16dp">
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="UPLOAD BOLETOS"
@@ -54,7 +53,6 @@
 
 
             <TextView
-                android:id="@+id/text_aluno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Aluno(a)" />
@@ -66,7 +64,6 @@
                 android:layout_marginBottom="25dp"/>
 
             <TextView
-                android:id="@+id/text_mes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mês" />
@@ -93,7 +90,7 @@
                     android:layout_gravity="center" />
 
                 <TextView
-                    android:id="@+id/textView_upload_boleto_nome"
+                    android:id="@+id/text_view_upload_boleto_nome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""/>
@@ -110,7 +107,7 @@
                 android:layout_gravity="center"/>
 
             <TextView
-                android:id="@+id/textView_upload_boletos_error"
+                android:id="@+id/text_view_upload_boletos_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/Vermelho" />

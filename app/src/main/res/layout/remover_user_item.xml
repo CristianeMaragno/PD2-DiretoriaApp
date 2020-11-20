@@ -16,7 +16,7 @@
         android:layout_margin="4dp">
 
         <TextView
-            android:id="@+id/textViewUserRegistrado"
+            android:id="@+id/text_view_user_registrado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -24,7 +24,7 @@
             android:textColor="@android:color/black" />
 
         <ImageView
-            android:id="@+id/imageViewDeleteUser"
+            android:id="@+id/image_view_delete_user"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
