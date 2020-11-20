@@ -24,8 +24,8 @@ public class MenuActivity extends AppCompatActivity {
 
     ImageView recados, calendario, users, ouvidoria, saida, diario, financeiro;
 
-    Button logout;
-    TextView identificadorDiretoria;
+    Button button_logout;
+    TextView text_view_identificador;
 
     private static final String TAG = "MenuActivity";
 
@@ -40,16 +40,16 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        recados = (ImageView) findViewById(R.id.recadosIcon);
-        calendario = (ImageView) findViewById(R.id.calendarioIcon);
-        users = (ImageView) findViewById(R.id.usersIcon);
-        ouvidoria = (ImageView) findViewById(R.id.ouvidoriaIcon);
-        saida = (ImageView) findViewById(R.id.saidaIcon);
-        diario = (ImageView) findViewById(R.id.diarioIcon);
-        financeiro = (ImageView) findViewById(R.id.financeiroIcon);
+        recados = (ImageView) findViewById(R.id.image_view_recados);
+        calendario = (ImageView) findViewById(R.id.image_view_calendario);
+        users = (ImageView) findViewById(R.id.image_view_users);
+        ouvidoria = (ImageView) findViewById(R.id.image_view_ouvidoria);
+        saida = (ImageView) findViewById(R.id.image_view_saida);
+        diario = (ImageView) findViewById(R.id.image_view_diario);
+        financeiro = (ImageView) findViewById(R.id.image_view_financeiro);
 
-        logout = (Button) findViewById(R.id.buttonLogout);
-        identificadorDiretoria = (TextView) findViewById(R.id.identificadorDiretoria);
+        button_logout = (Button) findViewById(R.id.button_logout);
+        text_view_identificador = (TextView) findViewById(R.id.text_view_identificador);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -78,7 +78,7 @@ public class MenuActivity extends AppCompatActivity {
 
                     Log.d(TAG, "showData: Nome: " + uInfo.getNome());
 
-                    identificadorDiretoria.setText(uInfo.getNome());
+                    text_view_identificador.setText(uInfo.getNome());
                 }
             }
             @Override
@@ -86,7 +86,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        logout.setOnClickListener(new View.OnClickListener() {
+        button_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
