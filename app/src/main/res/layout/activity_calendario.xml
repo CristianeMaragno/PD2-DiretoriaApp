@@ -33,7 +33,6 @@
             android:paddingTop="16dp">
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CALENDÁRIO"
@@ -58,13 +57,13 @@
                 android:text="Mês do evento" />
 
             <Spinner
-                android:id="@+id/spinner_Calendario_mes"
+                android:id="@+id/spinner_calendario_mes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"/>
 
             <EditText
-                android:id="@+id/editTextCalendario"
+                android:id="@+id/edit_text_calendario"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@drawable/edit_text_background"
@@ -79,7 +78,7 @@
                 android:textCursorDrawable="@null"/>
 
             <TextView
-                android:id="@+id/textErrorCalendario"
+                android:id="@+id/text_view_error_calendario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/Vermelho"/>
@@ -94,13 +93,13 @@
                 android:layout_gravity="center"/>
 
             <Spinner
-                android:id="@+id/spinner_Calendario_mes2"
+                android:id="@+id/spinner_calendario_mes2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"/>
 
             <ListView
-                android:id="@+id/listCalendar"
+                android:id="@+id/list_view_calendario"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@color/Amarelo"

@@ -37,11 +37,12 @@ import java.util.Collections;
 public class CalendarioActivity extends AppCompatActivity {
 
     Toolbar toolbar_calendario;
-    Spinner mes;
-    EditText texto;
-    Button enviar;
-    ListView listView;
-    Spinner mes2;
+    Spinner spinner_mes;
+    Spinner spinner_mes2;
+    EditText edit_text_evento;
+    Button button_enviar;
+    ListView list_view;
+
     TextView error_mensagem;
 
     private static final String TAG = "Calendario Activity";
@@ -63,12 +64,12 @@ public class CalendarioActivity extends AppCompatActivity {
         toolbar_calendario.setTitle("");
         toolbar_calendario.setSubtitle("");
 
-        mes = (Spinner) findViewById(R.id.spinner_Calendario_mes);
-        texto = (EditText) findViewById(R.id.editTextCalendario);
-        enviar = (Button) findViewById(R.id.button_calendario);
-        mes2 = (Spinner) findViewById(R.id.spinner_Calendario_mes2);
-        listView = (ListView) findViewById(R.id.listCalendar);
-        error_mensagem = (TextView) findViewById(R.id.textErrorCalendario);
+        spinner_mes = (Spinner) findViewById(R.id.spinner_calendario_mes);
+        spinner_mes2 = (Spinner) findViewById(R.id.spinner_calendario_mes2);
+        edit_text_evento = (EditText) findViewById(R.id.edit_text_calendario);
+        button_enviar = (Button) findViewById(R.id.button_calendario);
+        list_view = (ListView) findViewById(R.id.list_view_calendario);
+        error_mensagem = (TextView) findViewById(R.id.text_view_error_calendario);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -100,7 +101,7 @@ public class CalendarioActivity extends AppCompatActivity {
                 R.array.meses, android.R.layout.simple_spinner_item);
         adapter_mes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mes.setAdapter(adapter_mes);
+        spinner_mes.setAdapter(adapter_mes);
         ////////
 
         ///// Spinner mes de vizulização adapter
@@ -108,19 +109,19 @@ public class CalendarioActivity extends AppCompatActivity {
                 R.array.meses, android.R.layout.simple_spinner_item);
         adapter_mes_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mes2.setAdapter(adapter_mes_2);
+        spinner_mes2.setAdapter(adapter_mes_2);
         ////////
 
-        enviar.setOnClickListener(new View.OnClickListener() {
+        button_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String evento = texto.getText().toString();
+                String evento = edit_text_evento.getText().toString();
 
                 Calendar now = Calendar.getInstance();
                 int year = now.get(Calendar.YEAR);
                 String ano = String.valueOf(year);
 
-                final String mes_selecionado = mes.getItemAtPosition(mes.getSelectedItemPosition()).toString();
+                final String mes_selecionado = spinner_mes.getItemAtPosition(spinner_mes.getSelectedItemPosition()).toString();
 
                 if(!evento.equals("")) {
                     error_mensagem.setText("");
@@ -131,7 +132,7 @@ public class CalendarioActivity extends AppCompatActivity {
             }
         });
 
-        mes2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_mes2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 Recuperar_eventos();
@@ -152,7 +153,7 @@ public class CalendarioActivity extends AppCompatActivity {
         String key = myRef.push().getKey();
         myRef.child(ref).child(key).child("evento").setValue(evento);
 
-        texto.getText().clear();
+        edit_text_evento.getText().clear();
         Toast.makeText(CalendarioActivity.this, "Upload de evento concluído", Toast.LENGTH_SHORT).show();
     }
 
@@ -161,7 +162,7 @@ public class CalendarioActivity extends AppCompatActivity {
         int year = now.get(Calendar.YEAR);
         String ano = String.valueOf(year);
 
-        String mes_selecionado = mes2.getItemAtPosition(mes2.getSelectedItemPosition()).toString();
+        String mes_selecionado = spinner_mes2.getItemAtPosition(spinner_mes2.getSelectedItemPosition()).toString();
 
         String ref = mes_selecionado + "_" + ano;
 
@@ -187,7 +188,7 @@ public class CalendarioActivity extends AppCompatActivity {
                 }
 
                 Collections.reverse(array);
-                listView.setAdapter(adapter);
+                list_view.setAdapter(adapter);
             }
 
             @Override
