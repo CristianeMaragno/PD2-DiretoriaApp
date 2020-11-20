@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class FinanceiroActivity extends AppCompatActivity {
 
     Toolbar toolbar_financeiro;
-    Button uploadBoletos, excluirBoletos, solicitacoesReciboAnual;
+    Button button_upload_boletos, button_excluir_boletos, button_solicitacoes_recibo_anual;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -33,9 +33,9 @@ public class FinanceiroActivity extends AppCompatActivity {
         toolbar_financeiro.setTitle("");
         toolbar_financeiro.setSubtitle("");
 
-        uploadBoletos = (Button) findViewById(R.id.button_upload_boleto);
-        excluirBoletos = (Button) findViewById(R.id.button_excluir_boleto);
-        solicitacoesReciboAnual = (Button) findViewById(R.id.button_solicitar_recibo_anual);
+        button_upload_boletos = (Button) findViewById(R.id.button_upload_boleto);
+        button_excluir_boletos = (Button) findViewById(R.id.button_excluir_boleto);
+        button_solicitacoes_recibo_anual = (Button) findViewById(R.id.button_solicitar_recibo_anual);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -60,7 +60,7 @@ public class FinanceiroActivity extends AppCompatActivity {
             }
         };
 
-        uploadBoletos.setOnClickListener(new View.OnClickListener() {
+        button_upload_boletos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;
@@ -69,7 +69,7 @@ public class FinanceiroActivity extends AppCompatActivity {
             }
         });
 
-        excluirBoletos.setOnClickListener(new View.OnClickListener() {
+        button_excluir_boletos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;
@@ -78,7 +78,7 @@ public class FinanceiroActivity extends AppCompatActivity {
             }
         });
 
-        solicitacoesReciboAnual.setOnClickListener(new View.OnClickListener() {
+        button_solicitacoes_recibo_anual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i;

@@ -28,8 +28,8 @@ import java.util.ArrayList;
 public class DiarioActivity extends AppCompatActivity {
 
     Toolbar toolbar_diario;
-    Spinner turma;
-    ArrayList<DiarioItem> diarioList;
+    Spinner spinner_turma;
+    ArrayList<DiarioItem> array_list_diario;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -53,9 +53,9 @@ public class DiarioActivity extends AppCompatActivity {
         toolbar_diario.setTitle("");
         toolbar_diario.setSubtitle("");
 
-        turma = (Spinner) findViewById(R.id.spinner_turma_diario);
+        spinner_turma = (Spinner) findViewById(R.id.spinner_turma_diario);
         mRecyclerView = findViewById(R.id.recycler_view_diario);
-        diarioList = new ArrayList<>();
+        array_list_diario = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
@@ -85,13 +85,13 @@ public class DiarioActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter_turma = ArrayAdapter.createFromResource(this,
                 R.array.turmas_alunos, android.R.layout.simple_spinner_item);
         adapter_turma.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        turma.setAdapter(adapter_turma);
+        spinner_turma.setAdapter(adapter_turma);
         ////
 
-        turma.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_turma.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String turma_selecionada = turma.getItemAtPosition(turma.getSelectedItemPosition()).toString();
+                String turma_selecionada = spinner_turma.getItemAtPosition(spinner_turma.getSelectedItemPosition()).toString();
                 GetDiarioPosts(turma_selecionada);
             }
 
@@ -104,7 +104,7 @@ public class DiarioActivity extends AppCompatActivity {
     }
 
     private void GetDiarioPosts(final String turma_selecionada){
-        diarioList.clear();
+        array_list_diario.clear();
 
         myRef = mFirebaseDatase.getReference().child("diario_professor").child(turma_selecionada);
 
@@ -113,7 +113,7 @@ public class DiarioActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                diarioList.clear();
+                array_list_diario.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     DiarioInformation dInfo = new DiarioInformation();
@@ -124,12 +124,12 @@ public class DiarioActivity extends AppCompatActivity {
                     String post_text = dInfo.getDate() + "\n" + dInfo.getMensagem();
                     String mImageUrl = dInfo.getImageUrl();
 
-                    diarioList.add(new DiarioItem(R.drawable.ic_delete, post_text, mImageUrl, turma_selecionada));
+                    array_list_diario.add(new DiarioItem(R.drawable.ic_delete, post_text, mImageUrl, turma_selecionada));
                 }
 
                 mRecyclerView.setHasFixedSize(true);
                 mLayoutManager = new LinearLayoutManager(DiarioActivity.this);
-                mAdapter = new AdapterDiario(diarioList);
+                mAdapter = new AdapterDiario(array_list_diario);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setAdapter(mAdapter);
 

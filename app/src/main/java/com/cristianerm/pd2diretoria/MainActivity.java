@@ -29,11 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button login;
-    EditText diretoria;
-    EditText senha;
-    ProgressBar progressBar;
-    TextView textError;
+    Button button_login;
+    EditText edit_text_email;
+    EditText edit_text_senha;
+    ProgressBar progress_bar;
+    TextView text_view_error;
 
     private static final String TAG = "Main Activity";
 
@@ -48,33 +48,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        login = (Button) findViewById(R.id.buttonLogin);
-        diretoria = (EditText) findViewById(R.id.nomeDiredoria);
-        senha = (EditText) findViewById(R.id.senhaDiretoria);
-        progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
-        progressBar.setVisibility(View.GONE);
-        textError = (TextView) findViewById(R.id.textErrorLogin);
+        button_login = (Button) findViewById(R.id.button_login);
+        edit_text_email = (EditText) findViewById(R.id.edit_text_email_login);
+        edit_text_senha = (EditText) findViewById(R.id.edit_text_senha_login);
+        progress_bar = (ProgressBar) findViewById(R.id.progress_bar_login);
+        text_view_error = (TextView) findViewById(R.id.text_view_error_login);
+
+        progress_bar.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatase = FirebaseDatabase.getInstance();
 
-        login.setOnClickListener(new View.OnClickListener() {
+        button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                String email = diretoria.getText().toString();
-                String pass = senha.getText().toString();
+                progress_bar.setVisibility(View.VISIBLE);
+                String email = edit_text_email.getText().toString();
+                String pass = edit_text_senha.getText().toString();
                 if(!email.equals("") && !pass.equals("")){
-                    signIn(email, pass);
+                    SignIn(email, pass);
                 }else{
-                    progressBar.setVisibility(View.GONE);
-                    textError.setText("Você não preencheu todos os campos");
+                    progress_bar.setVisibility(View.GONE);
+                    text_view_error.setText("Você não preencheu todos os campos");
                 }
             }
         });
     }
 
-    private void signIn(final String email, String password) {
+    private void SignIn(final String email, String password) {
         Log.d(TAG, "signIn:" + email);
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
@@ -83,23 +84,24 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            textError.setText("");
+                            text_view_error.setText("");
                             Log.d(TAG, "signInWithEmail:success");
 
-                            checkUser(email);
-                            checkStatus();
+                            CheckUser(email);
+                            CheckStatus();
                         }
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
-                            progressBar.setVisibility(View.GONE);
+                            progress_bar.setVisibility(View.GONE);
                             try {
                                 throw task.getException();
                             } catch(FirebaseAuthInvalidCredentialsException e) {
-                                textError.setText("Email ou senha incorreta");
+                                text_view_error.setText("Email ou senha incorreta");
                             } catch(FirebaseAuthUserCollisionException e) {
-                                textError.setText("Tente novamente");
-                            } catch(Exception e) {
+                                text_view_error.setText("Tente novamente");
+                            }catch(Exception e) {
                                 Log.e(TAG, e.getMessage());
+                                text_view_error.setText("Tente novamente");
                             }
                         }
                     }
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    public void checkUser(final String email){
+    public void CheckUser(final String email){
 
         myRefUserDeletado = mFirebaseDatase.getReference().child("users_deletados");
 
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d(TAG, "showData: Email: " + uInfo.getEmail());
                     String email_database = uInfo.getEmail();
-                    progressBar.setVisibility(View.GONE);
+                    progress_bar.setVisibility(View.GONE);
 
                     if(email_database.equals(email)){
                         new AlertDialog.Builder(MainActivity.this)
@@ -141,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
                                 .show();
 
                         mAuth.signOut();
-                        diretoria.getText().clear();
-                        senha.getText().clear();
+                        edit_text_email.getText().clear();
+                        edit_text_senha.getText().clear();
                     }
                 }
             }
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void checkStatus(){
+    public void CheckStatus(){
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
@@ -168,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d(TAG, "showData: Status: " + uInfo.getStatus());
                     String status = uInfo.getStatus();
-                    progressBar.setVisibility(View.GONE);
+                    progress_bar.setVisibility(View.GONE);
 
                     if(status.equals("Diretoria")){
                         Intent i = new Intent(MainActivity.this, MenuActivity.class);
@@ -186,8 +188,8 @@ public class MainActivity extends AppCompatActivity {
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
 
-                        diretoria.getText().clear();
-                        senha.getText().clear();
+                        edit_text_email.getText().clear();
+                        edit_text_senha.getText().clear();
                     }
                 }
             }

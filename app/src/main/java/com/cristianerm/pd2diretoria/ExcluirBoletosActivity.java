@@ -29,8 +29,9 @@ import java.util.Calendar;
 public class ExcluirBoletosActivity extends AppCompatActivity {
 
     Toolbar toolbar_excluir_boletos;
-    Spinner alunos;
-    ArrayList<ExcluirBoletosItem> boletosList;
+    Spinner spinner_alunos;
+    ArrayList<ExcluirBoletosItem> array_list_boletos;
+    ArrayList<String> array_list_alunos_escola;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -56,9 +57,10 @@ public class ExcluirBoletosActivity extends AppCompatActivity {
         toolbar_excluir_boletos.setTitle("");
         toolbar_excluir_boletos.setSubtitle("");
 
-        alunos = (Spinner) findViewById(R.id.spinnerAlunoExcluirBoletos);
+        spinner_alunos = (Spinner) findViewById(R.id.spinner_aluno_excluir_boletos);
         mRecyclerView = findViewById(R.id.recycler_view_excluir_boletos);
-        boletosList = new ArrayList<>();
+        array_list_boletos = new ArrayList<>();
+        array_list_alunos_escola = new ArrayList<String>();
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -85,36 +87,34 @@ public class ExcluirBoletosActivity extends AppCompatActivity {
             }
         };
 
-        final ArrayList<String> alunosEscola = new ArrayList<String>();
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                alunosEscola.clear();
+                array_list_alunos_escola.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     for(DataSnapshot ds2 : ds.getChildren()){
                         UserInformation uInfo = new UserInformation();
                         uInfo.setNome(ds2.getValue(UserInformation.class).getNome());
 
-                        alunosEscola.add(uInfo.getNome());
+                        array_list_alunos_escola.add(uInfo.getNome());
                     }
                 }
 
                 ///// Spinner_aluno
-                ArrayAdapter<String> adapter_alunos = new ArrayAdapter<String>(ExcluirBoletosActivity.this,  android.R.layout.simple_spinner_dropdown_item, alunosEscola);
+                ArrayAdapter<String> adapter_alunos = new ArrayAdapter<String>(ExcluirBoletosActivity.this,  android.R.layout.simple_spinner_dropdown_item, array_list_alunos_escola);
                 adapter_alunos.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
-                alunos.setAdapter(adapter_alunos);
+                spinner_alunos.setAdapter(adapter_alunos);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
-        alunos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_alunos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String aluno_selecionado = alunos.getItemAtPosition(alunos.getSelectedItemPosition()).toString();
+                String aluno_selecionado = spinner_alunos.getItemAtPosition(spinner_alunos.getSelectedItemPosition()).toString();
                 GetUserID(aluno_selecionado);
             }
 
@@ -127,7 +127,6 @@ public class ExcluirBoletosActivity extends AppCompatActivity {
     }
 
     private void GetUserID(final String aluno_selecionado){
-
         myRefGetUserID = mFirebaseDatabase.getReference().child("alunos").child(aluno_selecionado);
 
         myRefGetUserID.addValueEventListener(new ValueEventListener() {
@@ -161,7 +160,7 @@ public class ExcluirBoletosActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                boletosList.clear();
+                array_list_boletos.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     ExcluirBoletosInformation bInfo = new ExcluirBoletosInformation();
@@ -170,12 +169,12 @@ public class ExcluirBoletosActivity extends AppCompatActivity {
 
                     String boleto_name = bInfo.getMes() + " " + bInfo.getAno();
 
-                    boletosList.add(new ExcluirBoletosItem(R.drawable.ic_delete, boleto_name, userId, aluno_selecionado));
+                    array_list_boletos.add(new ExcluirBoletosItem(R.drawable.ic_delete, boleto_name, userId, aluno_selecionado));
                 }
 
                 mRecyclerView.setHasFixedSize(true);
                 mLayoutManager = new LinearLayoutManager(ExcluirBoletosActivity.this);
-                mAdapter = new AdapterExcluirBoletos(boletosList);
+                mAdapter = new AdapterExcluirBoletos(array_list_boletos);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setAdapter(mAdapter);
 
